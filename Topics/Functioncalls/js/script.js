@@ -1,9 +1,9 @@
 /**
- * Title of Project
- * Author Name
+ * FunctionCalls
+ * Aidan Khan
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * Function Calls practice
+ * please add a grade if this work is graded
  */
 
 "use strict";
