@@ -1,0 +1,72 @@
+/* bool! */
+
+/*
+[SELECTOR] {
+	[RULE];
+	[RULE];
+	...
+}
+*/
+
+.title>div {
+    display: inline-block;
+    border: 1px solid black;
+
+    margin: auto;
+    /* TOP LEFT BOTTOM RIGHT */
+    /* padding: 0px 8px 0px 8px; */
+    /* TOP LEFT-RIGHT BOTTOM */
+    /* padding: 8px 16px 32px; */
+    /* TOP-BOTTOM LEFT-RIGHT */
+    padding: 0px 8px;
+    /* EVERYTHING */
+    /* padding: 8px; */
+}
+
+body {
+    text-align: center;
+}
+
+.big-text {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.medium-text {
+    font-size: 25px;
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+}
+
+.button-row button {
+    font-size: 150%;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 0;
+}
+
+.button-single {
+
+
+    justify-content: center;
+    gap: 24px;
+
+}
+
+.button-single button {
+    font-size: 150%;
+    padding: 12px;
+    border: 1px solid black;
+    border-radius: 0;
+}
+
+.wide-image {
+    width: 50%;
+    margin: auto;
+    display: block;
+}
