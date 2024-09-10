@@ -29,6 +29,6 @@ function draw() {
     push();
     fill(MouseX,MouseY,0);
     noStroke();
-    ellipse(width/2, height/2, MouseX, MouseY);
+    ellipse(width/2, height/2, 100, 100);
     Pop();
 }
