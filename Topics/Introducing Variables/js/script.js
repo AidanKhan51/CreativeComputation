@@ -1,24 +1,34 @@
 /**
- * Title of Project
- * Author Name
+ * Introducing Variables
+ * Aidan Khan
  * 
- * HOW EMBARRASSING! I HAVE NO DESCRIPTION OF MY PROJECT!
- * PLEASE REMOVE A GRADE FROM MY WORK IF IT'S GRADED!
+ * Learning about variables
+ * Please add a grade
  */
 
 "use strict";
 
 /**
- * OH LOOK I DIDN'T DESCRIBE SETUP!!
+ * Create Canvas
 */
 function setup() {
 
+    createCanvas(640, 640);
 }
 
 
+
 /**
- * OOPS I DIDN'T DESCRIBE WHAT MY DRAW DOES!
+ * Draws circle in center of canvas
 */
 function draw() {
 
+    background(0);
+
+    //draw a circle
+    push();
+    fill(MouseX,MouseY,0);
+    noStroke();
+    ellipse(width/2, height/2, MouseX, MouseY);
+    Pop();
 }
