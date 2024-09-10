@@ -8,29 +8,37 @@
 "use strict";
 
 // Colour of the sky
-let skyRed = 150;
-let skyGreen = 180;
-let skyBlue = 250;
+let sky = {
+
+red: 150,
+green: 180,
+blue: 250
+
+};
 
 // The sun
+let sun = {
 
-// Colour
-let sunRed = 255;
-let sunGreen = 255;
-let sunBlue = 0;
-// Position and size
-let sunX = 500;
-let sunY = 70;
-let sunSize = 100;
+    let fill = {
+        red: 255,
+        green: 255,
+        blue: 0
 
-// My self-esteem
+    },
+x: 500,
+y: 70,
+size: 100
 
-// Greyscale shade
-let selfEsteemShade = 0;
-// Position and size
-let selfEsteemX = 320;
-let selfEsteemY = 320;
-let selfEsteemSize = 20;
+};
+
+let selfEsteem = {
+
+shade: 0,
+x: 320,
+y: 320,
+size: 20
+
+};
 
 /**
  * Create the canvas
@@ -45,19 +53,19 @@ function setup() {
  */
 function draw() {
     // A nice blue sky
-    background(skyRed, skyGreen, skyBlue);
+    background(sky.red, sky.green, sky.blue);
 
     // The sun
     push();
-    fill(sunRed, sunGreen, sunBlue);
+    fill(sun.fill.red, sun.fill.green, sun.fill.blue);
     noStroke();
-    ellipse(sunX, sunY, sunSize);
+    ellipse(sun.x, sun.y, sun.size);
     pop();
 
     // My self esteem
     push();
-    fill(selfEsteemShade);
+    fill(selfEsteem.shade);
     noStroke();
-    ellipse(selfEsteemX, selfEsteemY, selfEsteemSize);
+    ellipse(selfEsteem.x, selfEsteem.y, selfEsteem.size);
     pop();
 }
