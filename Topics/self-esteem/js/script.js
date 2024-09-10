@@ -19,7 +19,7 @@ blue: 250
 // The sun
 let sun = {
 
-    let fill = {
+    fill: {
         red: 255,
         green: 255,
         blue: 0
