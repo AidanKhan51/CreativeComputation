@@ -1,6 +1,6 @@
 /**
  * Growhole
- * Pippin Barr
+ * Pippin Barr & Aidan Khan
  * 
  * An example of storing the result of a condition in a variable
  * to make a program more readable.

@@ -1,6 +1,6 @@
 /**
  * Lightswitch
- * Pippin Barr
+ * Pippin Barr & Aidan Khan
  * 
  * An example of storing a boolean value! In this case whether a 
  * light is on or off
