@@ -2,8 +2,8 @@
  * Too Slow!
  * Aidan Khan
  * 
- * One must image sisyphus giving a high five.
- * 
+ * One must imagine tantalus giving a high five.
+ * Gimme a high five! Or try your best I guess...
  */
 
 "use strict";
