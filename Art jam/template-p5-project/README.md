@@ -1,21 +1,25 @@
-# Template p5 Project
+# TOO SLOW
 
-Author Name
+Aidan Khan
 
 [View this project online](URL_FOR_THE_RUNNING_PROJECT)
 
 ## Description
 
-This description should help the reader understand what the program is, what any controls do, and perhaps what the desired experience it.
+A small interactive program that doesn't allow you to high-five any 
+of the hands. By moving the mouse towards the hands, they retreat into their holes. By trying to click to interact, you're told that you're too slow. Give Tantalus a high-five for me.
 
 ## Credits
 
-This bit should describe what tools were used. For example:
-
 This project uses [p5.js](https://p5js.org).
+Assets produced in Blender 3D, Dieback(https://okano.itch.io/dieback), and Adobe Illustrator.
+
 
 ## Attribution
 
-This bit should attribute any assets or other elements used taken from other sources. For example:
+Hand image sourced from (https://www.freepnglogos.com/pics/hand) photograph taken by John D. 
 
-The fish images were sourced from the [Creative Commons image "Georgia Aquarium Fish"](https://search.creativecommons.org/photos/96f6f770-eac1-488c-8abb-16bee7bcc874) by Mike Johnston which is licensed with CC BY 2.0. To view a copy of this license, visit https://creativecommons.org/licenses/by/2.0/.
+Font sourced from (https://www.1001fonts.com/team-fury-font.html),
+produced by 'Out Of Step Font Company'. Licensed under a Creative Commons Attribution Share Alike license 
+
+(http://creativecommons.org/licenses/by-sa/3.0/).

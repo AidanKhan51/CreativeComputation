@@ -80,6 +80,7 @@ function setup() {
 function draw() {
 
     background(50)
+    //sets up background gif
     image(gif, 0, 0);
     //draws the 3rd layer of the 3D model
     drawBackground();
@@ -93,7 +94,7 @@ function draw() {
     drawHandFront();
     //draws the first layer of the 3D model
     drawForeground();
-    //Function for when mouse is pressed
+    //function for when mouse is pressed
     click();
 
 
@@ -116,7 +117,7 @@ function drawForeground() {
 
 }
 
-//Calculates distance between mouse and all hands
+//calculates distance between mouse and hands
 function updateHandPosition() {
     //for hands in foreground
     handsFront.forEach(function (hand) {
@@ -165,13 +166,16 @@ function drawHandBack() {
 
 //function for when mouse is clicked
 function click() {
+
+    //Map that makes the text become more red the further down the mouse is
+    let textHueR = map(mouseY, 0, 1080, 50, 255);
     /**
      * when mouse is pressed, show text saying "TOO SLOW"
      * at cursor and wait 60 frames
     */
     if (mouseIsPressed || slowFrame) {
         textFont(font);
-        fill('#960000');
+        fill(textHueR, 0, 0);
         textAlign(CENTER)
         textSize(70);
         text('TOO SLOW', mouseX, mouseY);
@@ -185,11 +189,12 @@ function click() {
         }
     }
 
-    //Otherwise, show text "Score: 0, click to high five" at mouse
+    //Otherwise, show text "Score: 0, click to high five" at mouse position
     else {
 
+
         textFont(font);
-        fill('#960000');
+        fill(textHueR, 0, 0);
         textAlign(CENTER)
         textSize(70);
         text('SCORE 0', mouseX, mouseY);
@@ -197,3 +202,5 @@ function click() {
         text('click to high five', mouseX, mouseY + 30);
     }
 }
+
+//and that's it.
