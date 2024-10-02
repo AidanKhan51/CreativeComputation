@@ -2,7 +2,7 @@
 
 Aidan Khan
 
-[View this project online](URL_FOR_THE_RUNNING_PROJECT)
+[View this project online](https://aidankhan51.github.io/CreativeComputation/Art-jam/Art-Jam-project/)
 
 ## Description
 
