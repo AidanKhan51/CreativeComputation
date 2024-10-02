@@ -12,7 +12,7 @@ of the hands. By moving the mouse towards the hands, they retreat into their hol
 ## Credits
 
 This project uses [p5.js](https://p5js.org).
-Assets produced in Blender 3D, Dieback(https://okano.itch.io/dieback), and Adobe Illustrator.
+Assets produced in Blender 3D, Dieback (https://okano.itch.io/dieback), and Adobe Illustrator.
 
 
 ## Attribution
