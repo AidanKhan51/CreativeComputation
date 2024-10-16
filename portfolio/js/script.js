@@ -1,6 +1,6 @@
 /**
- * Title of Project
- * Author Name
+ * Portfolio
+ * Aidan Khan
  */
 
 "use strict";
@@ -65,5 +65,35 @@ function makePopup(contentId) {
 document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('3d-btn').addEventListener('click', () => {
 		makePopup('3d-popup');
+	});
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById('user-btn').addEventListener('click', () => {
+		makePopup('user-popup');
+	});
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById('2d-btn').addEventListener('click', () => {
+		makePopup('2d-popup');
+	});
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById('music-btn').addEventListener('click', () => {
+		makePopup('music-popup');
+	});
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById('games-btn').addEventListener('click', () => {
+		makePopup('games-popup');
+	});
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById('settings-btn').addEventListener('click', () => {
+		makePopup('settings-popup');
 	});
 });

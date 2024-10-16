@@ -22,15 +22,15 @@ body {
   background: white;
   border: 1px solid black;
   position: fixed;
-  min-width: 25vw;
-  min-height: 25vh;
+  min-width: 35vw;
+  min-height: 50vh;
 }
 
 .top-bar {
   display: flex;
 	justify-content: right;
 	min-height: 1em;
-  background: red;
+  background: grey;
   user-select: none;
 }
 
