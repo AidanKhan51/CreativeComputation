@@ -41,7 +41,7 @@ body {
 .main-grid {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  background: white;
+
   margin: 3em;
 }
 
@@ -51,6 +51,7 @@ body {
   grid-column-start: 2;
   align-items: center;
   justify-content: center;
+  background: white;
 }
 
 .start-grid > div {
