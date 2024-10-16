@@ -7,6 +7,12 @@
 
 const opened = new Set();
 
+const initializers = {'games-popup': () =>{
+	document.getElementById('hg3r-btn').addEventListener('click', () => {
+		makePopup('hg3r-popup');
+	});
+} }
+
 function makePopup(contentId) {
 	if (opened.has(contentId)) return;
 	opened.add(contentId);
@@ -24,6 +30,8 @@ function makePopup(contentId) {
 
 	popup.append(topBar, contentCnt);
 	document.body.append(popup);
+
+	initializers[contentId]?.()
 
 	popup.style.top = (window.innerHeight - popup.clientHeight) / 2 + 'px';
 	popup.style.left = (window.innerWidth - popup.clientWidth) / 2 + 'px';
@@ -63,12 +71,6 @@ function makePopup(contentId) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	document.getElementById('3d-btn').addEventListener('click', () => {
-		makePopup('3d-popup');
-	});
-});
-
-document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('user-btn').addEventListener('click', () => {
 		makePopup('user-popup');
 	});
@@ -81,6 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+	document.getElementById('3d-btn').addEventListener('click', () => {
+		makePopup('3d-popup');
+	});
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('music-btn').addEventListener('click', () => {
 		makePopup('music-popup');
 	});
@@ -90,10 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('games-btn').addEventListener('click', () => {
 		makePopup('games-popup');
 	});
-});
 
-document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('settings-btn').addEventListener('click', () => {
 		makePopup('settings-popup');
 	});
 });
+
