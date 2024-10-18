@@ -62,7 +62,7 @@ body {
 
 .img-grid {
   display: grid;
-  justify-content: center;
+  justify-items: center;
   grid-template-columns: 1fr 2fr 1fr;
   margin: 3em;
   gap: 3em;
