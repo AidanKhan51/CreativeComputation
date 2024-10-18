@@ -70,32 +70,25 @@ function makePopup(contentId) {
 	window.addEventListener('mousemove', mouseMoveListener)
 }
 
+// Popup commands from homepage
 document.addEventListener('DOMContentLoaded', () => {
+
 	document.getElementById('user-btn').addEventListener('click', () => {
 		makePopup('user-popup');
 	});
-});
 
-document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('2d-btn').addEventListener('click', () => {
 		makePopup('2d-popup');
 	});
-});
 
-document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('3d-btn').addEventListener('click', () => {
 		makePopup('3d-popup');
 	});
-});
 
-
-document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('music-btn').addEventListener('click', () => {
 		makePopup('music-popup');
 	});
-});
 
-document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('games-btn').addEventListener('click', () => {
 		makePopup('games-popup');
 	});
@@ -103,5 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('settings-btn').addEventListener('click', () => {
 		makePopup('settings-popup');
 	});
+
+
 });
 

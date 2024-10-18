@@ -23,7 +23,7 @@ body {
   background: white;
   border: 1px solid black;
   position: fixed;
-  min-width: 60vw;
+  min-width: 60vh;
   min-height: 60vh;
 }
 
@@ -58,4 +58,12 @@ body {
 .start-grid > div {
   display: flex;
   justify-content: center;
+}
+
+.img-grid {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin: 3em;
+  gap: 3em;
 }
