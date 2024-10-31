@@ -2,6 +2,7 @@
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 const oscillator = audioContext.createOscillator();
 const gainNode = audioContext.createGain();
+const ambientSound = new Audio("Jungle.mp3"); 
 
 // Set initial oscillator properties
 oscillator.type = 'sine'; // Options: 'sine', 'square', 'sawtooth', 'triangle'
@@ -14,6 +15,10 @@ gainNode.gain.setValueAtTime(0.5, audioContext.currentTime); // Default volume
 document.getElementById("playSound").addEventListener("click", () => {
     oscillator.start();
     document.getElementById("playSound").disabled = true; // Disable play button after starting
+    // Ambient sound
+ambientSound.loop = true; 
+ambientSound.volume = 0.2; // Set lower volume for background noise 
+    ambientSound.play();
 });
 
 // Volume Control Slider
@@ -35,3 +40,5 @@ function resetSettings() {
 }
 
 document.getElementById("resetButton").addEventListener("click", resetSettings);
+
+
