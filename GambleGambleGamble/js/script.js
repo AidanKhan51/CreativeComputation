@@ -17,6 +17,8 @@
 
 let gameState;
 
+let frogimg;
+
 // Game states
 const GAME_GAMBLING = 1;
 const GAME_PLAYING = 2;
@@ -29,8 +31,8 @@ const frog = {
     // The frog's body has a position and size
     body: {
         x: 320,
-        y: 600,
-        size: 150
+        y: 575,
+        size: 400
     },
     // The frog's tongue has a position, size, speed, and state
     tongue: {
@@ -44,7 +46,7 @@ const frog = {
 };
 
 const bank = {
-    bet: 0,
+    bet: 10,
     total: 1000
 };
 
@@ -77,12 +79,17 @@ let hiddenDealerCard = [
 /**
  * Creates the canvas and initializes the fly
  */
+function preload() {
+    frogimg = loadImage('assets/images/frogtest.png');
+}
+
 function setup() {
     gameState = GAME_GAMBLING;
     createCanvas(640, 800);
-    bank.bet = 0;
+    bank.bet = 10;
     textSize(30);
     textAlign(CENTER)
+    imageMode(CENTER);
     populateDealer();
     // Give the fly its first random position
     resetFly();
@@ -118,9 +125,11 @@ function draw() {
                 gameState = GAME_PLAYING;
             }
             else if (keyIsPressed === true && key === 'ArrowUp') {
+                bank.bet = constrain(bank.bet + 10, 20, 990)
                 bank.bet += 10
             }
             else if (keyIsPressed === true && key === 'ArrowDown') {
+                bank.bet = constrain(bank.bet - 10, 20, 990)
                 bank.bet -= 10
             }
             break;
@@ -143,7 +152,7 @@ function draw() {
             break;
         case GAME_WON:
             text(screenText, 325, 300);
-            text('press r to restart', 325,);
+            text('press r to restart', 325, 400);
             text('You won $' + bank.bet, 325, 350);
             break;
         case GAME_LOST:
@@ -168,7 +177,7 @@ function keyPressed() {
         dealerNumbers = []
         hiddenDealerCard = []
         populateDealer();
-        bank.bet = 0;
+        bank.bet = 10;
         gameState = GAME_GAMBLING;
     }
 }
@@ -271,7 +280,7 @@ function drawFrog() {
     push();
     fill("#00ff00");
     noStroke();
-    ellipse(frog.body.x, frog.body.y, frog.body.size);
+    image(frogimg, frog.body.x, frog.body.y, frog.body.size);
     pop();
 }
 
@@ -332,7 +341,6 @@ function cardCalculate() {
     cardNumbers.join('');
     text(cardNumbers.join(' '), 100, 700); // Prints string of numbers from card array
     text(playerSum, 325, 700); // Prints sum of card array
-
 }
 
 function dealerCalculate() {
