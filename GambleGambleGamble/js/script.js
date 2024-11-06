@@ -142,7 +142,7 @@ function preload() {
     card9 = loadImage('assets/images/nine.png')
     card10 = loadImage('assets/images/ten.png')
     flyimg = loadImage('assets/images/flyimg.png')
-    foreground = loadImage('assets/images/Foreground.png')
+    foreground = loadImage('assets/images/foreground.png')
     counter = loadImage('assets/images/counter.png')
     standimg = loadImage('assets/images/standimg.png')
     board = loadImage('assets/images/board.png')
