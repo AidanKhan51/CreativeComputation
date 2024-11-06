@@ -16,8 +16,17 @@
 "use strict";
 
 let gameState;
-
 let frogimg;
+let card1;
+let card2;
+let card3;
+let card4;
+let card5;
+let card6;
+let card7;
+let card8;
+let card9;
+let card10;
 
 // Game states
 const GAME_GAMBLING = 1;
@@ -25,6 +34,8 @@ const GAME_PLAYING = 2;
 const GAME_WON = 3;
 const GAME_LOST = 4;
 const GAME_TIE = 5;
+
+
 
 // Our frog
 const frog = {
@@ -46,23 +57,33 @@ const frog = {
 };
 
 const bank = {
-    bet: 10,
+    bet: 0,
     total: 1000
 };
 
 // Our fly
 // Has a position, size, and speed of horizontal movement
-const fly = {
-    x: 0,
-    y: 200, // Will be random
-    size: 10,
-    speed: 1
-};
+class Fly {
+    constructor(x, y, speed, size, center) {
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.speed = speed;
+        this.center = center;
+        this.circle = random(5, 20);
+        this.angle = 0;
+    }
+}
+
+let flies = [
+]
 
 const standButton = {
     x: 270,
     y: 50,
-    size: 100
+    sizeX: 100,
+    sizeY: 50,
+    speed: 5
 };
 
 //Card array that stores the numbers on the cards
@@ -81,18 +102,33 @@ let hiddenDealerCard = [
  */
 function preload() {
     frogimg = loadImage('assets/images/frogtest.png');
+    card1 = loadImage('assets/images/one.png')
+    card2 = loadImage('assets/images/two.png')
+    card3 = loadImage('assets/images/three.png')
+    card4 = loadImage('assets/images/four.png')
+    card5 = loadImage('assets/images/five.png')
+    card6 = loadImage('assets/images/six.png')
+    card7 = loadImage('assets/images/seven.png')
+    card8 = loadImage('assets/images/eight.png')
+    card9 = loadImage('assets/images/nine.png')
+    card10 = loadImage('assets/images/ten.png')
 }
 
 function setup() {
     gameState = GAME_GAMBLING;
     createCanvas(640, 800);
     bank.bet = 10;
+    bank.total = 1000;
     textSize(30);
     textAlign(CENTER)
     imageMode(CENTER);
     populateDealer();
+    populateFly();
+    checkDifficulty();
     // Give the fly its first random position
-    resetFly();
+    flies.forEach(fly => {
+        resetFly(fly);
+    });
 }
 
 let cardReveal;
@@ -104,9 +140,13 @@ function populateDealer() {
     hiddenDealerCard.push(int(random(1, 11)));
 }
 
+function populateFly() {
+    flies.push(new Fly(0, 100, 1, 10, 0));
+}
+
 function displayBank() {
-    text('Bet: $' + bank.bet, 500, 150);
-    text('Bank: $' + bank.total, 500, 100);
+    text('Bet: $' + bank.bet, 500, 700);
+    text('Bank: $' + bank.total, 500, 650);
 }
 
 function draw() {
@@ -114,35 +154,38 @@ function draw() {
         case GAME_GAMBLING:
             background("#87ceeb");
             drawStand();
+            showCard();
             drawFrog();
             drawForeground();
             screenText = 'Gamble!'
             text(screenText, 325, 300);
             text('UP to bet higher, DOWN to bet lower', 325, 350);
-            text('press ENTER to continue', 325, 400);
+            text('press ENTER to continue', 325, 450);
+            text('$' + bank.bet, 325, 400);
             displayBank();
             if (keyIsPressed === true && key === 'Enter') {
                 gameState = GAME_PLAYING;
             }
             else if (keyIsPressed === true && key === 'ArrowUp') {
-                bank.bet = constrain(bank.bet + 10, 20, 990)
+                bank.bet = constrain(bank.bet + 10, 20, (490 + bank.total))
                 bank.bet += 10
             }
             else if (keyIsPressed === true && key === 'ArrowDown') {
-                bank.bet = constrain(bank.bet - 10, 20, 990)
+                bank.bet = constrain(bank.bet - 10, 20, 490)
                 bank.bet -= 10
             }
             break;
         case GAME_PLAYING:
             background("#87ceeb");
-            displayBank();
             moveFly();
             drawFly();
             drawStand();
+            moveStand();
             moveFrog();
             moveTongue();
             drawFrog();
             drawForeground();
+            displayBank();
             dealerCalculate();
             checkTongueFlyOverlap();
             cardCalculate();
@@ -173,10 +216,14 @@ let screenText; // text on winning/losing screen
 function keyPressed() {
     // Resumes game when r key is pressed
     if (key === 'r' && gameState == GAME_WON || gameState == GAME_LOST || gameState == GAME_TIE) {
+        checkDifficulty();
         cardNumbers = []
         dealerNumbers = []
         hiddenDealerCard = []
+        flies = []
+        standButton.x = 270;
         populateDealer();
+        populateFly();
         bank.bet = 10;
         gameState = GAME_GAMBLING;
     }
@@ -186,41 +233,46 @@ function keyPressed() {
  * Moves the fly according to its speed
  * Resets the fly if it gets all the way to the right
  */
-var angle = 0;
 
 function moveFly() {
-    // Move the fly\
-    const circle = {
-        speed: 20
-    };
-    fly.x += 5 * cos(angle / circle.speed);
-    fly.x += + fly.speed;
-    fly.y += 5 * sin(angle / circle.speed);
-    angle++;
-    // Handle the fly going off the canvas
-    if (fly.x > width) {
-        circle.speed = random(10, 100);
-        resetFly();
-    }
+    flies.forEach(fly => {
+        // Move the fly\
+        fly.x += 5 * cos(fly.angle / fly.circle);
+        fly.x += fly.speed;
+        fly.center += fly.speed;
+        fly.y += 5 * sin(fly.angle / fly.circle);
+        // Handle the fly going off the canvas
+        fly.angle++;
+        if (fly.center > 600) {
+            fly.speed *= -1
+        }
+        else if (fly.center < 0) {
+            fly.speed *= -1
+        }
+    });
 }
 
 /**
  * Draws the fly as a black circle
  */
+
 function drawFly() {
-    push();
-    noStroke();
-    fill("#000000");
-    ellipse(fly.x, fly.y, fly.size);
-    pop();
+    flies.forEach(fly => {
+        push();
+        noStroke();
+        fill("#000000");
+        ellipse(fly.x, fly.y, fly.size);
+        pop();
+    });
 }
 
 /**
  * Resets the fly to the left with a random y
  */
-function resetFly() {
-    fly.x = fly.speed;
-    fly.y = random(100, 450);
+function resetFly(fly) {
+    fly.x = 0;
+    fly.center = 0;
+    fly.y = random(250, 450);
 }
 
 /**
@@ -286,39 +338,55 @@ function drawFrog() {
 
 function drawForeground() {
     push();
-    rect(0, 600, 800, 200)
+    rect(0, 600, 640, 200)
     pop();
 }
 
 function drawStand() {
     push();
-    rect(standButton.x, standButton.y, standButton.size)
+    rect(standButton.x, standButton.y, standButton.sizeX, standButton.sizeY)
     pop();
 }
+
+function moveStand() {
+    standButton.x += standButton.speed;
+    if (standButton.x > 540) {
+        standButton.speed *= -1
+    }
+    else if (standButton.x < 0) {
+        standButton.speed *= -1
+    }
+}
+
+let flySpawn;
 
 /**
  * Handles the tongue overlapping the fly
  */
 function checkTongueFlyOverlap() {
-    // Get distance from tongue to fly
-    const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
-    // Check if it's an overlap
-    const eaten = (d < frog.tongue.size / 2 + fly.size / 2);
-    if (eaten) {
-        // Reset the fly
-        resetFly();
-        // Bring back the tongue
-        frog.tongue.state = "inbound";
-        cardNumbers.push(int(random(1, 11))); // Adds random number from 1-10 into card array
-        calculateState(); // Calculates if win or lose condition has been activated
-    }
+    flies.forEach(fly => {
+        // Get distance from tongue to fly
+        const d = dist(frog.tongue.x, frog.tongue.y, fly.x, fly.y);
+        // Check if it's an overlap
+        const eaten = (d < frog.tongue.size / 2 + fly.size / 2);
+        if (eaten) {
+            // Reset the fly
+            flies.push(new Fly((random() < 0.5 ? (flySpawn = 0) : (flySpawn = 600)), 100, 1, 10, flySpawn));
+            resetFly(fly);
+            // Bring back the tongue
+            frog.tongue.state = "inbound";
+            cardNumbers.push(int(random(1, 11))); // Adds random number from 1-10 into card array
+            calculateState(); // Calculates if win or lose condition has been activated
+            random() < 0.5 ? 0 : (flies.push(new Fly((random() < 0.5 ? (flySpawn = 0) : (flySpawn = 600)), 100, 1, 10, flySpawn)));
+        }
+    })
 }
 
 /**
  * Launch the tongue on click (if it's not launched yet)
  */
 function mousePressed() {
-    if (frog.tongue.state === "idle") {
+    if (frog.tongue.state === "idle" && gameState === GAME_PLAYING) {
         frog.tongue.state = "outbound";
     }
 }
@@ -365,32 +433,35 @@ function dealerCard() {
 }
 
 function checkStandOverlap() { // Checks when player decides to stand
+
     const playerSum = getPlayerSum();
     const dealerSum = getDealerSum();
     const d = dist(frog.tongue.x, frog.tongue.y, standButton.x, standButton.y);
-    const standing = (d < frog.tongue.size / 2 + standButton.size / 2);
+    const standing = (d < frog.tongue.size / 2 + standButton.sizeY);
     if (standing) {
+        frog.tongue.y = 560
+        frog.tongue.state = "idle";
+        flies.forEach(fly => {
+            resetFly(fly);
+        })
+        cardReveal = hiddenDealerCard.join(' ');
+        sumReveal = dealerSum
         if (dealerSum < 16 && dealerSum < playerSum) {
             dealerCard();
         }
-        frog.tongue.state = "inbound";
-        resetFly();
-        cardReveal = hiddenDealerCard.join(' ');
-        sumReveal = dealerSum
         if (dealerSum > 21) {
             screenText = 'Dealer Bust!'
             // If dealer's cards are over 21, player wins
-            bank.total += bank.bet * 1.5;
+            bank.total += (bank.bet * 0.5);
             gameState = GAME_WON;
         }
         else if (playerSum === dealerSum) {
             screenText = 'Push!'
-            bank.total += bank.bet;
             gameState = GAME_TIE;
         }
         else if (playerSum > dealerSum) {
             screenText = 'Win!'
-            bank.total += bank.bet * 1.5;
+            bank.total += (bank.bet * 0.5);
             gameState = GAME_WON;
         }
         else if (playerSum < dealerSum) {
@@ -417,13 +488,28 @@ function calculateState() {
     else if (shownDealerSum > 21) {
         screenText = 'Dealer Bust!'
         // If dealer's cards are over 21, player wins
-        bank.total += bank.bet * 1.5;
+        bank.total += bank.bet * 0.5;
         gameState = GAME_WON;
     }
     else if (cardNumbers.length === 5) {
         screenText = 'Five-card Charlie!'
         // If player has drawn 5 cards without going over 21, player wins
-        bank.total += bank.bet * 1.5;
+        bank.total += bank.bet * 0.5;
         gameState = GAME_WON;
     }
+}
+
+function checkDifficulty() {
+    //The more money the faster the stand button and flies move
+    flies.forEach(fly => {
+        standButton.speed = 5
+        fly.speed = 1.5
+        standButton.speed += (bank.total * 0.0003)
+        fly.speed += (bank.total * 0.0001)
+        standButton.speed = constrain(standButton.speed + 0.01, 5, 10)
+        fly.speed = constrain(fly.speed + 0.01, 1, 3)
+    })
+}
+function showCard() {
+
 }
