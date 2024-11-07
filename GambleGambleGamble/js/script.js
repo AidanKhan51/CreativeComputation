@@ -27,21 +27,15 @@ let flySpawn; //variable to decide 50% chance of fly spawning on left or right s
 
 //images
 let frogimg;
-let card1;
-let card2;
-let card3;
-let card4;
-let card5;
-let card6;
-let card7;
-let card8;
-let card9;
-let card10;
 let flyimg;
 let foreground;
 let counter;
 let standimg;
 let board;
+let imgs;
+let dealerImgs;
+let cardBack;
+let font;
 
 // Game states
 const GAME_GAMBLING = 1;
@@ -49,20 +43,6 @@ const GAME_PLAYING = 2;
 const GAME_WON = 3;
 const GAME_LOST = 4;
 const GAME_TIE = 5;
-
-
-//let images = [
-//image(card1, 0, 0, 100, 150),
-// image(card2, 0, 0, 100, 150),
-// image(card3, 0, 0, 100, 150),
-// image(card4, 0, 0, 100, 150),
-// image(card5, 0, 0, 100, 150),
-// image(card6, 0, 0, 100, 150),
-// image(card7, 0, 0, 100, 150),
-// image(card8, 0, 0, 100, 150),
-// image(card9, 0, 0, 100, 150),
-// image(card10, 0, 0, 100, 150)
-//]
 
 // Our frog
 const frog = {
@@ -102,6 +82,7 @@ class Fly {
         this.angle = 0;
     }
 }
+
 //array for our flies
 let flies = [
 ]
@@ -130,22 +111,42 @@ let hiddenDealerCard = [
  * image preload
  */
 function preload() {
+    //Array for card images for player
+    imgs = [
+        loadImage('assets/images/1.png'),
+        loadImage('assets/images/2.png'),
+        loadImage('assets/images/3.png'),
+        loadImage('assets/images/4.png'),
+        loadImage('assets/images/5.png'),
+        loadImage('assets/images/6.png'),
+        loadImage('assets/images/7.png'),
+        loadImage('assets/images/8.png'),
+        loadImage('assets/images/9.png'),
+        loadImage('assets/images/10.png')
+    ];
+    // Array for card images for dealer
+    dealerImgs = [
+        loadImage('assets/images/1.png'),
+        loadImage('assets/images/2.png'),
+        loadImage('assets/images/3.png'),
+        loadImage('assets/images/4.png'),
+        loadImage('assets/images/5.png'),
+        loadImage('assets/images/6.png'),
+        loadImage('assets/images/7.png'),
+        loadImage('assets/images/8.png'),
+        loadImage('assets/images/9.png'),
+        loadImage('assets/images/10.png')
+    ];
+    // other preloaded images
     frogimg = loadImage('assets/images/frogtest.png');
-    card1 = loadImage('assets/images/one.png')
-    card2 = loadImage('assets/images/two.png')
-    card3 = loadImage('assets/images/three.png')
-    card4 = loadImage('assets/images/four.png')
-    card5 = loadImage('assets/images/five.png')
-    card6 = loadImage('assets/images/six.png')
-    card7 = loadImage('assets/images/seven.png')
-    card8 = loadImage('assets/images/eight.png')
-    card9 = loadImage('assets/images/nine.png')
-    card10 = loadImage('assets/images/ten.png')
     flyimg = loadImage('assets/images/flyimg.png')
     foreground = loadImage('assets/images/infront.png')
     counter = loadImage('assets/images/counter.png')
     standimg = loadImage('assets/images/standimg.png')
     board = loadImage('assets/images/board.png')
+    cardBack = loadImage('assets/images/cardBack.png')
+    // load font
+    font = loadFont('assets/BmArmy.ttf');
 }
 
 /**
@@ -157,6 +158,7 @@ function preload() {
  */
 function setup() {
     gameState = GAME_GAMBLING;
+    textFont(font);
     createCanvas(640, 800);
     showBoard();
     bank.bet = 10;
@@ -176,7 +178,6 @@ function setup() {
 //populate dealer array with starting hand
 function populateDealer() {
     dealerCard();
-    cardReveal = '?';
     hiddenDealerCard.push(int(random(1, 11)));
 }
 
@@ -203,8 +204,8 @@ function displayBank() {
     image(counter, 517, 552);
     pop();
     textAlign(LEFT);
-    text('Bet:   $' + bank.bet, 435, 586);
-    text('Bank:   $' + bank.total, 410, 541);
+    text('Bet  $' + bank.bet, 431, 586);
+    text('Bank  $' + bank.total, 405, 541);
     textAlign(CENTER);
 }
 
@@ -221,11 +222,11 @@ function draw() {
             showBoard();
             drawStand();
             drawForeground();
+            menuBackground();
             screenText = 'Gamble!'
-            text(screenText, 325, 300);
-            text('UP to bet higher, DOWN to bet lower', 325, 350);
-            text('press ENTER to continue', 325, 450);
-            text('$' + bank.bet, 325, 400);
+            text(screenText, 325, 40);
+            text('UP ARROW and DOWN ARROW to bet', 325, 90);
+            text('press ENTER to continue', 325, 140);
             displayBank();
             drawFrog();
             drawForeground();
@@ -248,6 +249,8 @@ function draw() {
             background("#87ceeb");
             showBoard();
             moveFly();
+            displayDealerImages();
+            displayHoleCard();
             drawFly();
             drawStand();
             moveStand();
@@ -256,30 +259,33 @@ function draw() {
             displayBank();
             drawFrog();
             drawForeground();
+            displayCardImages();
             dealerCalculate();
             checkTongueFlyOverlap();
             cardCalculate();
             checkStandOverlap();
-            text(cardReveal, 160, 245);
             text(sumReveal, 322, 400);
             break;
         case GAME_WON:
             // Displays winning text 
-            text(screenText, 325, 300);
-            text('press r to restart', 325, 430);
-            text('You won $' + bank.bet, 325, 350);
+            menuBackground();
+            text(screenText, 325, 40);
+            text('press r to restart', 325, 90);
+            text('You won $' + bank.bet, 325, 140);
             break;
         case GAME_LOST:
             // Displays losing text 
-            text(screenText, 325, 300);
-            text('press r to restart', 325, 430);
-            text('You lost $' + bank.bet, 325, 350);
+            menuBackground();
+            text(screenText, 325, 40);
+            text('press r to restart', 325, 90);
+            text('You lost $' + bank.bet, 325, 140);
             break;
         case GAME_TIE:
             // Displays push text
-            text(screenText, 325, 300);
-            text('press r to restart', 325, 430);
-            text('$' + bank.bet + ' returned', 325, 350);
+            menuBackground();
+            text(screenText, 325, 40);
+            text('press r to restart', 325, 90);
+            text('$' + bank.bet + ' returned', 325, 140);
             break;
     }
 }
@@ -302,6 +308,13 @@ function keyPressed() {
         bank.bet = 10;
         gameState = GAME_GAMBLING;
     }
+}
+
+//Background for state menus
+function menuBackground() {
+    push();
+    rect(0, 0, 640, 165)
+    pop();
 }
 
 /**
@@ -493,8 +506,35 @@ function getShownDealerSum() {
 function cardCalculate() {
     const playerSum = getPlayerSum();
     cardValues.join('');
-    text(cardValues.join(' '), 50, 700); // Prints string of Values from card array
     text(playerSum, 513, 710); // Prints sum of player's card array
+}
+
+//Displays an image card based on the value in the card array
+function displayCardImages() {
+    if (cardValues.length === 1) {
+        image(imgs[cardValues[0] - 1], 55, 669, 70, 100);
+    }
+    else if (cardValues.length === 2) {
+        image(imgs[cardValues[0] - 1], 55, 670, 70, 100);
+        image(imgs[cardValues[1] - 1], 105, 716, 70, 100);
+    }
+    else if (cardValues.length === 3) {
+        image(imgs[cardValues[0] - 1], 55, 670, 70, 100);
+        image(imgs[cardValues[1] - 1], 105, 716, 70, 100);
+        image(imgs[cardValues[2] - 1], 154, 670, 70, 100);
+    }
+    else if (cardValues.length === 4) {
+        image(imgs[cardValues[0] - 1], 55, 670, 70, 100);
+        image(imgs[cardValues[1] - 1], 105, 716, 70, 100);
+        image(imgs[cardValues[2] - 1], 154, 670, 70, 100);
+        image(imgs[cardValues[3] - 1], 207, 716, 70, 100);
+    } else if (cardValues.length === 5) {
+        image(imgs[cardValues[0] - 1], 55, 670, 70, 100);
+        image(imgs[cardValues[1] - 1], 105, 716, 70, 100);
+        image(imgs[cardValues[2] - 1], 154, 670, 70, 100);
+        image(imgs[cardValues[3] - 1], 207, 716, 70, 100);
+        image(imgs[cardValues[4] - 1], 258, 670, 70, 100);
+    }
 }
 
 //calculates and prints the dealer sum while 'card in the hole' has NOT been revealed
@@ -502,7 +542,6 @@ function dealerCalculate() {
     const playerSum = getPlayerSum(); //gets the sums for the player, dealer, and dealer's true sum
     const dealerSum = getDealerSum();
     const shownDealerSum = getShownDealerSum();
-    text(dealerValues.join(' '), 265, 245); // Prints string of dealer's card array
     sumReveal = shownDealerSum
     if (cardValues.length === 3 && playerSum > dealerSum && dealerSum < 16) {
         // If the player has drawn 3 cards and the dealer's number is lower, the dealer draws
@@ -511,6 +550,33 @@ function dealerCalculate() {
             // If the dealer's sum is still under 16, the dealer draws
             dealerCard();
         }
+    }
+}
+
+// Displays cards based on values from the dealer's hand
+function displayDealerImages() {
+    if (dealerValues.length === 1) {
+        image(imgs[dealerValues[0] - 1], 265, 232, 70, 100);
+    }
+    else if (dealerValues.length === 2) {
+        image(imgs[dealerValues[0] - 1], 265, 232, 70, 100);
+        image(imgs[dealerValues[1] - 1], 360, 232, 70, 100);
+    }
+    else if (dealerValues.length >= 3) {
+        image(imgs[dealerValues[0] - 1], 265, 232, 70, 100);
+        image(imgs[dealerValues[1] - 1], 372, 232, 70, 100);
+        image(imgs[dealerValues[2] - 1], 478, 232, 70, 100);
+    }
+}
+
+// function to display card in the hole
+function displayHoleCard() {
+    const d = dist(frog.tongue.x, frog.tongue.y, standTarget.x, standTarget.y); // defines distance between tongue and overlap
+    const standing = (d < frog.tongue.size / 2 + standTarget.sizeY); // checks when stand button is pressed
+    if (standing) {
+        image(imgs[hiddenDealerCard[0] - 1], 158, 232, 70, 100);
+    } else {
+        image(cardBack, 158, 232, 70, 100); // If card in the hole hasn't been revealed, display card back
     }
 }
 
@@ -530,6 +596,7 @@ function checkStandOverlap() {
         /**
          * sends frog tongue back, and turns it idle to prevent stand button from being hit multiple times
          */
+        displayHoleCard(); // Displays card in the hole
         frog.tongue.y = 560
         frog.tongue.state = "idle";
         flies.forEach(fly => {
@@ -537,10 +604,7 @@ function checkStandOverlap() {
         })
         cardReveal = hiddenDealerCard.join(' '); // reveals card in the hole
         sumReveal = dealerSum // reveals true sum of dealer now including card in the hole
-        if (dealerSum < 16 && dealerSum < playerSum) {
-            dealerCard(); //if the dealer's sum is still under 16 when stand target is hit, they draw a card
-        }
-        else if (dealerSum > 21) {
+        if (dealerSum > 21) {
             screenText = 'Dealer Bust!'
             // If dealer's cards are over 21, player wins
             bank.total += (bank.bet * 0.5);
