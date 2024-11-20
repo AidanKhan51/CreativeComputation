@@ -22,37 +22,76 @@
 </head>
 
 <!-- popups -->
-<body>
-  <template id="user-popup">
-    <h2 style="margin:10px 20px">user info</h2>
-    <div>
-      <img src="https://i.redd.it/7vw6dtzvw3jb1.jpg" alt="user info" width="100" height="100" style="float:left;margin: 0 20px">
-    <div> Here's where I'd write a bunch of things about myself.</div>
 
-  </div>
+<body>
+  <template id="popup-base">
+
+    <div class="nw-corner"></div>
+    <div class="north-border"></div>
+    <div class="ne-corner"></div>
+    <div class="west-border"></div>
+    <div class="popup-center">
+      <div class="top-bar"><button class="closeButton">×</button></div>
+      <div class="content-cnt"></div>
+    </div>
+    <div class="east-border"></div>
+    <div class="sw-corner"></div>
+    <div class="south-border"></div>
+    <div class="se-corner"></div>
+
+
   </template>
 
   <template id="2d-popup">
     <h2>Illustrations</h2>
     <div class="img-grid">
       <div>
-        <img src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg" alt="drawing" width="200" height="200">
+        <img
+          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
+          alt="drawing" width="200" height="200">
       </div>
       <div>
-        <img src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg" alt="drawing" width="200" height="200">
+        <img
+          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
+          alt="drawing" width="200" height="200">
       </div>
       <div>
-        <img src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg" alt="drawing" width="200" height="200">
+        <img
+          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
+          alt="drawing" width="200" height="200">
       </div>
       <div>
-        <img src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg" alt="drawing" width="200" height="200">
+        <img
+          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
+          alt="drawing" width="200" height="200">
       </div>
       <div>
-        <img src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg" alt="drawing" width="200" height="200">
+        <img
+          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
+          alt="drawing" width="200" height="200">
       </div>
       <div>
-        <img src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg" alt="drawing" width="200" height="200">
+        <img
+          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
+          alt="drawing" width="200" height="200">
       </div>
+    </div>
+  </template>
+
+  <template id="user-popup">
+    <h2 style="margin:5px 10px">user info</h2>
+    <div style="float:left;margin: 0 10px; display: flex;">
+      <img src="https://i.redd.it/7vw6dtzvw3jb1.jpg" alt="user info" width="100" height="100">
+    </div>
+    <div style="margin: 0 10px;min-height: 90px;border-top:solid;border-bottom:solid;border-width:1px; padding: 5px;">
+      About me section. Here I will write things about myself.
+    </div>
+    <div style="display:flex;margin: 5px 10px;border-top:solid;border-bottom:solid;border-width:1px; padding: 5px">
+      Info about my art?
+    </div>
+    <div
+      style="position: absolute; bottom: 0; right: 0;border-style:solid;border-width:1px; margin: auto;background-color: white">
+      socials would go here if needed
     </div>
   </template>
 
@@ -65,44 +104,82 @@
     <h2>Music</h2>
     <div>
       <audio controls>
-      <source src="horse.mp3" type="audio/mpeg">
+        <source src="horse.mp3" type="audio/mpeg">
       </audio>
     </div>
     <div>
       <audio controls>
-      <source src="horse2.mp3" type="audio/mpeg">
+        <source src="horse2.mp3" type="audio/mpeg">
       </audio>
     </div>
     <div>
       <audio controls>
-      <source src="horse3.mp3" type="audio/mpeg">
+        <source src="horse3.mp3" type="audio/mpeg">
       </audio>
     </div>
   </template>
 
   <template id="games-popup">
     <h2>Projects</h2>
-      <button id="hg3r-btn">
-        <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="HG3R" width="100" height="100">
-          <div>HG3R</div>
-          <div>(computer only)</div>
+    <div style="border-bottom:solid;border-width:1px; margin: 10px 0px;">
+      Ready to play
+    </div>
+    <button id="hg3r-btn" style="margin: 10px 10px">
+      <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="HG3R" width="100" height="100">
+      <div>HG3R</div>
+      <div>(computer only)</div>
+    </button>
+    <button id="TOOSLOW-btn" style="margin: 10px 10px">
+      <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="TOO SLOW" width="100" height="100">
+      <div>TOO SLOW</div>
+      <div>(computer only)</div>
+    </button>
+    <button id="GAMBLE-btn" style="margin: 10px 10px">
+      <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="GAMBLEGAMBLEGAMBLE" width="100"
+        height="100">
+      <div>GAMBLE x3</div>
+      <div>(computer only)</div>
+    </button>
+    <div style="border-bottom:solid;border-width:1px; margin: 10px 0px;">
+      External
+    </div>
+    <a href="https://play.google.com/store/apps/details?id=com.paintdevstuff.PlushiesontheRun&pli=1" target="_blank">
+      <button style="margin: 10px 10px">
+        <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="Plushies On The Run" width="100"
+          height="100">
+        <div>POTR</div>
       </button>
+    </a>
+    <div style="margin: 0px 10px; border-style: solid; border-width: 1px; width: 115px; text-align: center;">
+      Guest composer
+    </div>
   </template>
 
-   <template id="hg3r-popup">
-    <iframe height=624 width=816 style="float:middle" src=https://pub-82f17d419ef34043973f014068861a94.r2.dev/index.html></iframe>
+  <template id="hg3r-popup">
+    <iframe height=624 width=816 style="float:middle"
+      src=https://pub-82f17d419ef34043973f014068861a94.r2.dev/index.html></iframe>
   </template>
 
-  <template id="settings-popup">
-    <h2>Settings</h2>
+  <template id="TOOSLOW-popup">
+    <iframe height=700 width=1024 style="float:middle"
+      src=https://aidankhan51.github.io/CreativeComputation/Art-jam/Art-Jam-project></iframe>
+  </template>
+
+  <template id="GAMBLE-popup">
+    <iframe height=800 width=640 style="float:middle"
+      src=https://aidankhan51.github.io/CreativeComputation/GambleGambleGamble></iframe>
+  </template>
+
+  <template id="bestOf-popup">
+    <h2>Best of</h2>
     <h3>Nothing here quite yet</h3>
   </template>
 
-  
 
 
-<!-- Menu buttons to access pages on the website-->
-   <div class="main-grid">
+
+  <!-- Menu buttons to access pages on the website-->
+  <div class="main-grid">
     <div class="start-grid">
       <div>
         <button id="user-btn">
@@ -112,7 +189,8 @@
       </div>
       <div>
         <button id="2d-btn">
-          <img src="https://www.clipstudio.net/view/img/common/clipstudiopaint-icon.png" alt="illustrations" width="100" height="100">
+          <img src="https://www.clipstudio.net/view/img/common/clipstudiopaint-icon.png" alt="illustrations" width="100"
+            height="100">
           <div>Illustrations</div>
         </button>
       </div>
@@ -124,7 +202,8 @@
       </div>
       <div>
         <button id="music-btn">
-          <img src="https://support.soundbrenner.com/hc/article_attachments/900002368966/Reaper.png" alt="Music" width="100" height="100">
+          <img src="https://support.soundbrenner.com/hc/article_attachments/900002368966/Reaper.png" alt="Music"
+            width="100" height="100">
           <div>Music</div>
         </button>
       </div>
@@ -135,13 +214,15 @@
         </button>
       </div>
       <div>
-        <button id="settings-btn">
-          <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3272249/settings-icon-md.png" alt="Settings" width="100" height="100">
-          <div>Settings</div>
+        <button id="bestOf-btn">
+          <img
+            src="https://static.vecteezy.com/system/resources/thumbnails/024/522/354/small_2x/bookmark-favourite-clipart-white-banner-clipart-save-icon-illustration-shapes-and-lines-artistic-elements-creative-graphics-abstract-shapes-geometric-patterns-bookmark-elements-free-png.png"
+            alt="Bookmarks" width="100" height="100">
+          <div>Best of</div>
         </button>
       </div>
-     </div>
-   </div>
+    </div>
+  </div>
 </body>
 
 </html>
