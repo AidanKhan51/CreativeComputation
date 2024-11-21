@@ -18,7 +18,27 @@ body {
   /* Body is the height of the viewport */
   overflow: hidden;
   /* Hide anything that goes off the window size */
-  background: brown;
+  background-image: url('https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  min-height: 470px;
+  min-width: 615px;
+}
+
+@font-face {
+  font-family: 'OCRA';
+  src: url('../assets/fonts/OCR-A.ttf');
+}
+
+@font-face {
+  font-family: 'Dots';
+  src: url('../assets/fonts/DotGothic.ttf');
+}
+
+@font-face {
+  font-family: 'SCDF';
+  src: url('../assets/fonts/SCDF.ttf');
 }
 
 /* popup styling */
@@ -40,13 +60,16 @@ body {
   display: flex;
   justify-content: right;
   min-height: 1em;
-  background: grey;
+  border-style: solid;
+  border-width: 1px;
+  background-image: url('../assets/images/TopBar.png');
+  background-repeat: repeat;
   user-select: none;
 }
 
 .content-cnt {
-  padding: 1em;
   overflow: auto;
+  padding: 1em;
 }
 
 .main-grid {
@@ -56,12 +79,17 @@ body {
 }
 
 .start-grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-start: 2;
   align-items: center;
   justify-content: center;
-  background: white;
+  background-image: url('../assets/images/Grid.png');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  padding: 10px;
 }
 
 .start-grid>div {
@@ -72,9 +100,9 @@ body {
 .img-grid {
   display: grid;
   justify-items: center;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   margin: 3em;
-  gap: 3em;
+  gap: 1em;
 }
 
 .popup-center {
@@ -113,4 +141,52 @@ body {
 
 .se-resize {
   cursor: se-resize;
+}
+
+.text-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.closeButton {
+  background-image: url('../assets/images/Close.png');
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  margin: 1px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.gameDesc {
+  font-family: 'Dots';
+  align-content: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0px 10px;
+  border-style: dotted;
+  border-width: 2px;
+  width: 115px;
+  text-align: center;
+}
+
+.appText {
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  font-family: 'Dots';
+  padding-top: 10px;
+}
+
+.buttonBg {
+  background: black;
+  background-size: cover;
+  border-color: white;
+  border-width: 3px;
+}
+
+.gameBtn {
+  margin: 10px 10px;
+  border: none;
+  background: none;
 }

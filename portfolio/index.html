@@ -31,7 +31,7 @@
     <div class="ne-corner"></div>
     <div class="west-border"></div>
     <div class="popup-center">
-      <div class="top-bar"><button class="closeButton">×</button></div>
+      <div class="top-bar"><button class="closeButton"></button></div>
       <div class="content-cnt"></div>
     </div>
     <div class="east-border"></div>
@@ -43,8 +43,8 @@
   </template>
 
   <template id="2d-popup">
-    <h2>Illustrations</h2>
-    <div class="img-grid">
+    <h2 style="text-align: center;">Illustrations</h2>
+    <div class="img-grid" style="border-style: solid; border-width: 1px; padding: 5px; min-width: 700px">
       <div>
         <img
           src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
@@ -79,19 +79,31 @@
   </template>
 
   <template id="user-popup">
-    <h2 style="margin:5px 10px">user info</h2>
+    <h2 style="margin:5px 10px;font-family: 'OCRA';">USER INFO</h2>
     <div style="float:left;margin: 0 10px; display: flex;">
-      <img src="https://i.redd.it/7vw6dtzvw3jb1.jpg" alt="user info" width="100" height="100">
-    </div>
-    <div style="margin: 0 10px;min-height: 90px;border-top:solid;border-bottom:solid;border-width:1px; padding: 5px;">
-      About me section. Here I will write things about myself.
-    </div>
-    <div style="display:flex;margin: 5px 10px;border-top:solid;border-bottom:solid;border-width:1px; padding: 5px">
-      Info about my art?
+      <img style='margin: 5px;' src="https://i.redd.it/7vw6dtzvw3jb1.jpg" alt="user info" width="150" height="150">
     </div>
     <div
-      style="position: absolute; bottom: 0; right: 0;border-style:solid;border-width:1px; margin: auto;background-color: white">
-      socials would go here if needed
+      style="margin: 0 10px; font-size: 18px; font-family: 'OCRA'; max-width: 600px;min-height: 150px;border-top:solid;border-bottom:solid;border-width:1px; padding: 5px;">
+      My name is <strong>Aidan Khan</strong>. I'm a first-year student at Concordia university majoring in Computation
+      Arts.
+    </div>
+    <div
+      style="display:flex;margin: 5px 10px;;font-size:25px;font-family: 'OCRA';max-width: 600px;border-top:solid;border-bottom:solid;border-width:1px; padding: 5px; padding-left: 0px;">
+      <strong>MY ART</strong>
+    </div>
+    <div style="margin: 0 10px; max-width: 600px; font-family: 'OCRA';">
+      blah blah blah blah blah blah blah blah blah blah blah blah blah blahblah blah blah blah blah blah blah blah blah
+      blah blah blah blah blah
+    </div>
+    <div
+      style="position: absolute; bottom: 0; right: 0; border-style:solid;border-width:1px; margin: auto;background-color: white; padding: 5px; padding-bottom: 1px">
+      <a target="_blank" href="https://www.instagram.com/aidankhan51/?igsh=MW9xdTl1NHJnaHI0aA%3D%3D">
+        <img style='margin: 5px' src="../assets/images/jerma.png" alt="instagram" width="50" height="50"></a>
+      <a target="_blank" href="mailto:aidan.khan31@gmail.com">
+        <img style='margin: 5px' src="../assets/images/jerma.png" alt="instagram" width="50" height="50"></a>
+      <a target="_blank" href="https://www.linkedin.com/in/aidan-khan-86b6902b2/">
+        <img style='margin: 5px' src="../assets/images/jerma.png" alt="instagram" width="50" height="50"></a>
     </div>
   </template>
 
@@ -104,55 +116,62 @@
     <h2>Music</h2>
     <div>
       <audio controls>
-        <source src="horse.mp3" type="audio/mpeg">
-      </audio>
-    </div>
-    <div>
-      <audio controls>
-        <source src="horse2.mp3" type="audio/mpeg">
-      </audio>
-    </div>
-    <div>
-      <audio controls>
-        <source src="horse3.mp3" type="audio/mpeg">
+        <source src="../assets/sounds/Flag Day.mp3" type="audio/mpeg">
       </audio>
     </div>
   </template>
 
   <template id="games-popup">
-    <h2>Projects</h2>
-    <div style="border-bottom:solid;border-width:1px; margin: 10px 0px;">
+    <strong style="font-family: 'SCDF';font-size: 50px;">PROJECTS</strong>
+    <div
+      style="font-family: 'Dots';border-bottom: dotted;border-width:3px; margin: 15px 0px; font-family: 'Dots'; font-size: 20px;">
       Ready to play
     </div>
-    <button id="hg3r-btn" style="margin: 10px 10px">
-      <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="HG3R" width="100" height="100">
-      <div>HG3R</div>
-      <div>(computer only)</div>
-    </button>
-    <button id="TOOSLOW-btn" style="margin: 10px 10px">
-      <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="TOO SLOW" width="100" height="100">
-      <div>TOO SLOW</div>
-      <div>(computer only)</div>
-    </button>
-    <button id="GAMBLE-btn" style="margin: 10px 10px">
-      <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="GAMBLEGAMBLEGAMBLE" width="100"
-        height="100">
-      <div>GAMBLE x3</div>
-      <div>(computer only)</div>
-    </button>
-    <div style="border-bottom:solid;border-width:1px; margin: 10px 0px;">
-      External
+    <div style="display:flex; flex-wrap: wrap;">
+      <div>
+        <button id="hg3r-btn" class="gameBtn">
+          <img src="../assets/images/HG3.png" alt="HG3R" width="100" height="100">
+        </button>
+        <div class="gameDesc">
+          <strong>HIM Games 3</strong>
+          <div>Lead Programmer & Composer</div>
+        </div>
+      </div>
+      <div>
+        <button id="TOOSLOW-btn" class="gameBtn">
+          <img src="../assets/images/Hand.png" alt="TOO SLOW" width="100" height="100">
+        </button>
+        <div class="gameDesc">
+          <strong>TOO SLOW</strong>
+          <div>Creator</div>
+        </div>
+      </div>
+      <div>
+        <button id="GAMBLE-btn" class="gameBtn">
+          <img src="../assets/images/Frog.png" alt="GAMBLEGAMBLEGAMBLE" width="100" height="100">
+        </button>
+        <div class="gameDesc">
+          <strong>GAMBLE x3</strong>
+          <div>Creator</div>
+        </div>
+      </div>
     </div>
-    <a href="https://play.google.com/store/apps/details?id=com.paintdevstuff.PlushiesontheRun&pli=1" target="_blank">
-      <button style="margin: 10px 10px">
-        <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="Plushies On The Run" width="100"
-          height="100">
-        <div>POTR</div>
-      </button>
-    </a>
-    <div style="margin: 0px 10px; border-style: solid; border-width: 1px; width: 115px; text-align: center;">
-      Guest composer
+    <div style="border-bottom:dotted;border-width:3px; margin: 15px 0px;font-family: 'Dots'; font-size: 20px;">
+      Download
     </div>
+    <div style="display:flex; flex-wrap: wrap;">
+      <div>
+        <a href="https://play.google.com/store/apps/details?id=com.paintdevstuff.PlushiesontheRun&pli=1"
+          target="_blank">
+          <button class="gameBtn">
+            <img src="../assets/images/Plush.png" alt="Plushies On The Run" width="100" height="100">
+          </button>
+        </a>
+        <div class="gameDesc">
+          <strong>Plushies On The Run</strong>
+          <div>Guest composer</div>
+        </div>
+      </div>
   </template>
 
   <template id="hg3r-popup">
@@ -172,7 +191,7 @@
 
   <template id="bestOf-popup">
     <h2>Best of</h2>
-    <h3>Nothing here quite yet</h3>
+    <h3>Work In Progress!</h3>
   </template>
 
 
@@ -181,45 +200,48 @@
   <!-- Menu buttons to access pages on the website-->
   <div class="main-grid">
     <div class="start-grid">
-      <div>
-        <button id="user-btn">
-          <img src="https://i.redd.it/7vw6dtzvw3jb1.jpg" alt="user info" width="100" height="100">
-          <div>User Info</div>
-        </button>
-      </div>
-      <div>
-        <button id="2d-btn">
-          <img src="https://www.clipstudio.net/view/img/common/clipstudiopaint-icon.png" alt="illustrations" width="100"
-            height="100">
-          <div>Illustrations</div>
-        </button>
-      </div>
-      <div>
-        <button id="3d-btn">
-          <img src="https://logodix.com/logo/1655928.png" alt="3D models" width="100" height="100">
-          <div>3D</div>
-        </button>
-      </div>
-      <div>
-        <button id="music-btn">
-          <img src="https://support.soundbrenner.com/hc/article_attachments/900002368966/Reaper.png" alt="Music"
-            width="100" height="100">
-          <div>Music</div>
-        </button>
-      </div>
-      <div>
-        <button id="games-btn">
-          <img src="https://clipground.com/images/controller-clipart-8.jpg" alt="Projects" width="100" height="100">
-          <div>Projects</div>
-        </button>
-      </div>
-      <div>
-        <button id="bestOf-btn">
+      <img
+        style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; pointer-events: none; width: 100%; height: 100%"
+        src="../assets/images/Screen.png">
+      <div class="text-button">
+        <button id="user-btn" class="buttonBg">
           <img
-            src="https://static.vecteezy.com/system/resources/thumbnails/024/522/354/small_2x/bookmark-favourite-clipart-white-banner-clipart-save-icon-illustration-shapes-and-lines-artistic-elements-creative-graphics-abstract-shapes-geometric-patterns-bookmark-elements-free-png.png"
-            alt="Bookmarks" width="100" height="100">
-          <div>Best of</div>
+            src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
+            alt="user info" width="150" height="150">
         </button>
+        <div class="appText">User Info</div>
+      </div>
+      <div class="text-button">
+        <button id="2d-btn" class="buttonBg">
+          <img src="https://www.clipstudio.net/view/img/common/clipstudiopaint-icon.png" alt="illustrations" width="150"
+            height="150">
+        </button>
+        <div class="appText">Illustrations</div>
+      </div>
+      <div class="text-button">
+        <button id="3d-btn" class="buttonBg">
+          <img src="../assets/images/Cube.gif" alt="3D models" width="150" height="150">
+        </button>
+        <div class="appText">3D</div>
+      </div>
+      <div class="text-button">
+        <button id="music-btn" class="buttonBg">
+          <img src="https://support.soundbrenner.com/hc/article_attachments/900002368966/Reaper.png" alt="Music"
+            width="150" height="150">
+        </button>
+        <div class="appText">Music</div>
+      </div>
+      <div class="text-button">
+        <button id="games-btn" class="buttonBg">
+          <img src="../assets/images/Controller.gif" alt="Projects" width="150" height="150">
+        </button>
+        <div class="appText">Projects</div>
+      </div>
+      <div class="text-button">
+        <button id="bestOf-btn" class="buttonBg">
+          <img src="../assets/images/Trophy.gif" alt="Bookmarks" width="150" height="150">
+        </button>
+        <div class="appText">Best Of</div>
       </div>
     </div>
   </div>
