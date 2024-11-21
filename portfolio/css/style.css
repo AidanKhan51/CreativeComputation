@@ -175,7 +175,13 @@ body {
   color: rgb(255, 255, 255);
   font-size: 20px;
   font-family: 'Dots';
-  padding-top: 10px;
+  background: black;
+  border-style: solid;
+  border-width: 2.5px;
+  width: 163px;
+  height: 50px;
+  text-align: center;
+  align-content: center;
 }
 
 .buttonBg {
