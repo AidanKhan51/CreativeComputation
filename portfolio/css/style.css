@@ -77,6 +77,10 @@ body {
   cursor: grab;
 }
 
+.top-bar:active {
+  cursor: grabbing;
+}
+
 .content-cnt {
   overflow: auto;
   padding: 1em;
@@ -206,6 +210,12 @@ body {
   user-select: none;
 }
 
+.buttonBg:hover {
+  border-color: green;
+  border-width: 3px;
+  background: white;
+}
+
 .gameBtn {
   margin: 10px 10px;
   border: none;
@@ -237,4 +247,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgb(185, 185, 185);
   cursor: grab;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgb(185, 185, 185);
+  cursor: grabbing;
+}
+
+.pause-screen:paused {
+  filter: brightness(0.5);
 }

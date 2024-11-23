@@ -210,3 +210,9 @@ function registerResizer(parent, selector, func) {
 		document.body.style.userSelect = 'none';
 	});
 }
+
+var element = document.querySelector('buttonBg');
+
+if (element.matches(':hover')) {
+	console.log('Mouse is over the element now.');
+}
