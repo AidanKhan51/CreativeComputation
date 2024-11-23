@@ -173,11 +173,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		makePopup('user-popup');
 	});
 
-	document.getElementById('TWODEE-btn').addEventListener('click', () => {
+	document.getElementById('twodee-btn').addEventListener('click', () => {
 		makePopup('2d-popup');
 	});
 
-	document.getElementById('THREEDEE-btn').addEventListener('click', () => {
+	document.getElementById('threedee-btn').addEventListener('click', () => {
 		makePopup('3d-popup');
 	});
 
