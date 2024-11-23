@@ -211,8 +211,3 @@ function registerResizer(parent, selector, func) {
 	});
 }
 
-var element = document.querySelector('buttonBg');
-
-if (element.matches(':hover')) {
-	console.log('Mouse is over the element now.');
-}

@@ -183,7 +183,7 @@ body {
   padding-top: 5px;
   padding-bottom: 5px;
   margin: 0px 10px;
-  border-style: dotted;
+  border-top: dotted;
   border-width: 2px;
   width: 115px;
   text-align: center;
@@ -252,8 +252,4 @@ body {
 ::-webkit-scrollbar-thumb:active {
   background: rgb(185, 185, 185);
   cursor: grabbing;
-}
-
-.pause-screen:paused {
-  filter: brightness(0.5);
 }
