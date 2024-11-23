@@ -49,22 +49,29 @@
   </template>
 
   <template id="2d-popup">
-    <h2 style="text-align: center;">Illustrations</h2>
+    <div style="border-style: solid; border-width: 1px">
+      <div style="text-align: center;font-family: 'Nashville'; font-size: 60px;">Illustrations
+      </div>
+      <div></div>
+    </div>
     <div class="img-grid" style="border-style: solid; border-width: 1px; padding: 5px; min-width: 700px">
       <div>
-        <img
-          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
-          alt="drawing" width="200" height="200">
+        <button id='correctness' class="drawings"
+          style="background-image: url('assets/images/Correctness.jpg'); background-size: cover">
+        </button>
+        <div class="illust-text">Correctness</div>
       </div>
       <div>
-        <img
-          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
-          alt="drawing" width="200" height="200">
+        <button id='hylics' class="drawings"
+          style="background-image: url('assets/images/Hylics.png'); background-size: cover;">
+        </button>
+        <div class="illust-text">Hylics</div>
       </div>
       <div>
-        <img
-          src="https://m.media-amazon.com/images/M/MV5BNWRhNzgxNzQtODk5ZC00OWQ0LWI5ZTktNjhmMmU5MGIzODE2XkEyXkFqcGc@._V1_.jpg"
-          alt="drawing" width="200" height="200">
+        <button id='infestation' class="drawings"
+          style="background-image: url('assets/images/Infest.png'); background-size: cover">
+        </button>
+        <div class="illust-text">Infestation</div>
       </div>
       <div>
         <img
@@ -106,11 +113,11 @@
     <div
       style="position: absolute; bottom: 0; right: 0; border-style:solid;border-width:1px; margin: auto;background-color: white; padding: 5px; padding-bottom: 1px">
       <a target="_blank" href="https://www.instagram.com/aidankhan51/?igsh=MW9xdTl1NHJnaHI0aA%3D%3D">
-        <img style='margin: 5px' src="assets/images/jerma.png" alt="instagram" width="50" height="50"></a>
+        <img style='margin: 5px' src="assets/images/instagram.png" alt="instagram" width="50" height="50"></a>
       <a target="_blank" href="mailto:aidan.khan31@gmail.com">
-        <img style='margin: 5px' src="assets/images/jerma.png" alt="email" width="50" height="50"></a>
+        <img style='margin: 5px' src="assets/images/linkedin.png" alt="email" width="50" height="50"></a>
       <a target="_blank" href="https://www.linkedin.com/in/aidan-khan-86b6902b2/">
-        <img style='margin: 5px' src="assets/images/jerma.png" alt="linkedin" width="50" height="50"></a>
+        <img style='margin: 5px' src="assets/images/email.png" alt="linkedin" width="50" height="50"></a>
     </div>
   </template>
 
@@ -131,7 +138,7 @@
   <template id="games-popup">
     <strong style=" font-family: 'SCDF' ;font-size: 50px;">PROJECTS</strong>
     <div
-      style="font-family: 'Dots';border-bottom: dotted;border-width:3px; margin: 15px 0px; font-family: 'Dots'; font-size: 20px;">
+      style="font-family: 'Dots';border-bottom: dotted;border-width:3px; margin: 15px 0px; font-family: 'Dots'; font-size: 20px; padding-bottom: 3px;">
       Ready to play
     </div>
     <div style="display:flex; flex-wrap: wrap;">
@@ -163,7 +170,8 @@
         </div>
       </div>
     </div>
-    <div style="border-bottom:dotted;border-width:3px; margin: 15px 0px;font-family: 'Dots'; font-size: 20px;">
+    <div
+      style="border-bottom:dotted;border-width:3px; margin: 15px 0px;font-family: 'Dots'; font-size: 20px;padding-bottom: 3px;">
       Download
     </div>
     <div style="display:flex; flex-wrap: wrap;">
