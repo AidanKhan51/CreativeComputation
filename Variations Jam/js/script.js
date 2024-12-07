@@ -20,6 +20,9 @@ let dartRed;
 let dartUpBlue;
 let dartUpRed;
 let dartboard;
+let border;
+let thumbHeight = 0;
+let thumbDown = false;
 
 const BLUE = 1;
 const RED = 2;
@@ -66,6 +69,7 @@ function preload() {
     dartUpBlue = loadImage('assets/images/dartUpBlue.png');
     dartUpRed = loadImage('assets/images/dartUpRed.png');
     dartboard = loadImage('assets/images/dartboard.png');
+    border = loadImage('assets/images/dartborder.png');
 }
 
 /**
@@ -79,22 +83,25 @@ function setup() {
     textFont(font);
     textSize(30);
     imageMode(CENTER);
+    rectMode(CENTER);
 }
 
 /**
  * My Draw
 */
 function draw() {
-    background("black");
+    background('black')
     drawDartboard();
     checkTurn();
     roundDisplay();
+    drawPowerBar();
     drawDarts();
     drawCrosshair();
     redScore();
     blueScore();
     dartDisplay();
     resetBoard();
+    image(border, 400, 400, 800, 800)
 }
 
 function resetBoard() {
@@ -126,8 +133,6 @@ function mouseClicked() {
             redDartCounter.shift();
             break;
     }
-    console.log(blueDarts)
-    console.log(redDarts)
 }
 
 function roundDisplay() {
@@ -147,13 +152,13 @@ function roundDisplay() {
 
 function addDartBlue() {
     calculateX = mouseX
-    calculateY = mouseY
+    calculateY = mouseY + thumbHeight;
     blueDarts.push(new Dart(calculateX, calculateY));
 }
 
 function addDartRed() {
     calculateX = mouseX
-    calculateY = mouseY
+    calculateY = mouseY + thumbHeight;
     redDarts.push(new Dart(calculateX, calculateY));
 }
 
@@ -175,9 +180,14 @@ function drawDarts() {
 }
 
 function drawCrosshair() {
+    const blueCross = {
+        x: mouseX,
+        y: mouseY,
+    }
+    console.log(blueCross.x)
     if (playerTurn === BLUE) {
         push();
-        image(aimBlue, mouseX, mouseY, 70, 70);
+        image(aimBlue, blueCross.x, blueCross.y, 70, 70);
         pop();
     }
     else if (playerTurn === RED) {
@@ -189,23 +199,23 @@ function drawCrosshair() {
 
 function drawDartboard() {
     push();
-    image(dartboard, 400, 400, 600, 600);
-    pop();
-}
-
-function redScore() {
-    push();
-    fill('white')
-    textSize(50);
-    text(score.red, 700, 700);
+    image(dartboard, 400, 400, 672, 592);
     pop();
 }
 
 function blueScore() {
     push();
     fill('white')
-    textSize(50);
-    text(score.blue, 30, 700);
+    textSize(60);
+    text(score.blue, 40, 700);
+    pop();
+}
+
+function redScore() {
+    push();
+    fill('white')
+    textSize(60);
+    text(score.red, 670, 700);
     pop();
 }
 
@@ -223,14 +233,44 @@ function dartDisplay() {
 }
 
 function populateBlue() {
-    blueDartCounter.push(new Darticon(40, 770));
-    blueDartCounter.push(new Darticon(70, 770));
-    blueDartCounter.push(new Darticon(100, 770));
+    blueDartCounter.push(new Darticon(55, 730));
+    blueDartCounter.push(new Darticon(85, 730));
+    blueDartCounter.push(new Darticon(115, 730));
 }
 
 function populateRed() {
-    redDartCounter.push(new Darticon(770, 770));
-    redDartCounter.push(new Darticon(740, 770));
-    redDartCounter.push(new Darticon(710, 770));
+    redDartCounter.push(new Darticon(745, 730));
+    redDartCounter.push(new Darticon(715, 730));
+    redDartCounter.push(new Darticon(685, 730));
+}
+
+function drawPowerBar() {
+    const thumb = {
+        x: mouseX + 50,
+        y: mouseY + thumbHeight,
+        w: 20,
+        h: 10
+    }
+    const bar = {
+        x: mouseX + 50,
+        y: mouseY,
+        w: 20,
+        h: 150
+    }
+    push();
+    rect(bar.x, bar.y, bar.w, bar.h);
+    pop();
+    push();
+    rect(thumb.x, thumb.y, thumb.w, thumb.h);
+    pop();
+    if (thumbHeight >= 75)
+        thumbDown = true;
+    else if (thumbHeight <= -75)
+        thumbDown = false;
+
+    if (thumbDown)
+        thumbHeight -= 3;
+    else
+        thumbHeight += 3;
 }
 
