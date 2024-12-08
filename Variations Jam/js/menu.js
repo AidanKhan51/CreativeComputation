@@ -76,7 +76,7 @@ function draw() {
             button2.mousePressed(delayDartMaster);
             drawDarts();
             drawCrosshair();
-            drawPowerBar();
+            drawPowerMeter();
             image(border, 400, 400, 800, 800)
             break;
         /** * Dartmaster
@@ -92,7 +92,7 @@ function draw() {
             redScore();
             blueScore();
             drawCrosshair();
-            drawPowerBar();
+            drawPowerMeter();
             resetBoard();
             image(border, 400, 400, 800, 800)
             break;
@@ -109,14 +109,54 @@ function draw() {
     }
 }
 
-function delayDartMaster() {
-    setTimeout(dartMaster, 700)
+/**
+ * If mouse is clicked, set thrown variable that determines when a dart has been thrown to true.
+ * the thrown variable is then used to change the hand icon to the throwing hand icon
+ */
+function mouseClicked() {
+    thrown = true;
+    //afterwards, the throwing hand icon resets after 0.7 seconds.
+    setTimeout(resetHand, 700);
+    if (gameOn === true) {
+        //If the game is active, determine which player's turn it is
+        switch (playerTurn) {
+            case BLUE:
+                //add blue dart to board
+                addDartBlue();
+                //remove blue dart icon from reserve
+                blueDartCounter.shift();
+                break;
+            case RED:
+                //same as above but for red
+                addDartRed();
+                redDartCounter.shift();
+                break;
+        }
+    }
+    //if the game is not active, and the gameState is instead menu, simply add a blue dart to the
+    else if (gameState === menu) {
+        addDartBlue();
+    }
 }
 
+//Delays start of next game/case by 0.7 seconds to limit user confusion when switching games
 function delayMenu() {
     setTimeout(menuChange, 700)
 }
 
+function delayDartMaster() {
+    setTimeout(dartMaster, 700)
+}
+
+//sets up menu and changes gameState to menu
+function menuChange() {
+    blueDarts = []
+    redDarts = []
+    gameState = menu;
+    gameOn = false;
+}
+
+//sets up dartmaster and turns gameState to dartmaster
 function dartMaster() {
     blueDartCounter = []
     redDartCounter = []
@@ -128,13 +168,7 @@ function dartMaster() {
     gameOn = true;
 }
 
-function menuChange() {
-    blueDarts = []
-    redDarts = []
-    gameState = menu;
-    gameOn = false;
-}
-
+//Title text for menu screen
 function title() {
     push();
     fill('white');
@@ -152,3 +186,4 @@ function title() {
     text("est. 2024", 225, 230);
     pop();
 }
+

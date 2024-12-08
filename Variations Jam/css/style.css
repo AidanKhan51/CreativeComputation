@@ -13,6 +13,7 @@ body {
   padding: 0;
   margin: 0;
   background: black;
+  /* sets background to black*/
   display: grid;
   /* Set up the grid and justify/align to center */
   justify-content: center;
