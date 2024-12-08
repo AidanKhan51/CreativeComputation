@@ -20,9 +20,15 @@ let dartRed;
 let dartUpBlue;
 let dartUpRed;
 let dartboard;
+let barImg;
+let thumbImg;
 let border;
 let thumbHeight = 0;
 let thumbDown = false;
+let slowFrame = 0
+let game = true;
+let thrown = false;
+let hand;
 
 const BLUE = 1;
 const RED = 2;
@@ -62,20 +68,24 @@ function preload() {
     // turn data into variable
     dartsData = loadJSON("assets/data/darts.json");
     font = loadFont('assets/fonts/DotGothic.ttf');
-    aimBlue = loadImage('assets/images/aimBlue.png');
-    aimRed = loadImage('assets/images/aimRed.png');
+    aimBlue = loadImage('assets/images/armBlue.png');
+    aimRed = loadImage('assets/images/armRed.png');
     dartBlue = loadImage('assets/images/dartBlue.png');
     dartRed = loadImage('assets/images/dartRed.png');
     dartUpBlue = loadImage('assets/images/dartUpBlue.png');
     dartUpRed = loadImage('assets/images/dartUpRed.png');
     dartboard = loadImage('assets/images/dartboard.png');
     border = loadImage('assets/images/dartborder.png');
+    barImg = loadImage('assets/images/bar.png');
+    thumbImg = loadImage('assets/images/thumb.png');
+    hand = loadImage('assets/images/thrown.png');
 }
 
 /**
  * My Setup
 */
 function setup() {
+    noCursor();
     populateRed();
     populateBlue();
     createCanvas(800, 800);
@@ -94,22 +104,41 @@ function draw() {
     drawDartboard();
     checkTurn();
     roundDisplay();
-    drawPowerBar();
     drawDarts();
+    dartDisplay();
     drawCrosshair();
+    drawPowerBar();
     redScore();
     blueScore();
-    dartDisplay();
     resetBoard();
     image(border, 400, 400, 800, 800)
 }
 
 function resetBoard() {
     if ((redDarts.length === 3) && (blueDarts.length === 3)) {
+        push();
+        if (game === true) {
+            game = false;
+        }
+        pop();
+        push();
+        fill('white');
+        textSize(50);
+        text('Next Round', 265, 750);
+        pop();
+        setTimeout(resetDarts, 2000);
+    }
+}
+
+function resetDarts() {
+    if (game === false) {
         populateRed();
         populateBlue();
         redDarts = []
         blueDarts = []
+    }
+    if (game === false) {
+        game = true;
     }
 }
 
@@ -123,29 +152,39 @@ function checkTurn() {
 }
 
 function mouseClicked() {
-    switch (playerTurn) {
-        case BLUE:
-            addDartBlue();
-            blueDartCounter.shift();
-            break;
-        case RED:
-            addDartRed();
-            redDartCounter.shift();
-            break;
+    thrown = true;
+    setTimeout(resetHand, 700);
+    if (game === true) {
+        switch (playerTurn) {
+            case BLUE:
+                addDartBlue();
+                blueDartCounter.shift();
+                break;
+            case RED:
+                addDartRed();
+                redDartCounter.shift();
+                break;
+        }
     }
+}
+
+function resetHand() {
+    thrown = false;
 }
 
 function roundDisplay() {
     if (playerTurn === BLUE) {
         push();
         fill('blue');
-        text('BLUE Turn', 50, 50);
+        textSize(50);
+        text('BLUE Turn', 25, 65);
         pop();
     }
     else if (playerTurn === RED) {
         push();
         fill('red');
-        text(' RED Turn', 50, 50);
+        textSize(50);
+        text(' RED Turn', 545, 65);
         pop();
     }
 }
@@ -181,19 +220,23 @@ function drawDarts() {
 
 function drawCrosshair() {
     const blueCross = {
-        x: mouseX,
-        y: mouseY,
+        x: mouseX + 20,
+        y: mouseY + 50,
     }
-    console.log(blueCross.x)
     if (playerTurn === BLUE) {
-        push();
-        image(aimBlue, blueCross.x, blueCross.y, 70, 70);
-        pop();
+        if (thrown === true) {
+            image(hand, blueCross.x, blueCross.y, 250, 250);
+        } else {
+            image(aimBlue, blueCross.x, blueCross.y, 250, 250);
+        }
     }
     else if (playerTurn === RED) {
-        push();
-        image(aimRed, mouseX, mouseY, 70, 70);
-        pop();
+        if (thrown === true) {
+            image(hand, blueCross.x, blueCross.y, 250, 250);
+        }
+        else {
+            image(aimRed, mouseX + 20, mouseY + 50, 250, 250);
+        }
     }
 }
 
@@ -246,22 +289,22 @@ function populateRed() {
 
 function drawPowerBar() {
     const thumb = {
-        x: mouseX + 50,
-        y: mouseY + thumbHeight,
+        x: mouseX + 130,
+        y: (mouseY + 80) + thumbHeight,
         w: 20,
         h: 10
     }
     const bar = {
-        x: mouseX + 50,
-        y: mouseY,
+        x: mouseX + 130,
+        y: mouseY + 80,
         w: 20,
         h: 150
     }
     push();
-    rect(bar.x, bar.y, bar.w, bar.h);
+    image(barImg, bar.x, bar.y, bar.w, bar.h);
     pop();
     push();
-    rect(thumb.x, thumb.y, thumb.w, thumb.h);
+    image(thumbImg, thumb.x, thumb.y, thumb.w, thumb.h);
     pop();
     if (thumbHeight >= 75)
         thumbDown = true;
@@ -269,8 +312,8 @@ function drawPowerBar() {
         thumbDown = false;
 
     if (thumbDown)
-        thumbHeight -= 3;
+        thumbHeight -= 5;
     else
-        thumbHeight += 3;
+        thumbHeight += 5;
 }
 
