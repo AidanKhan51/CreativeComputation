@@ -7,12 +7,14 @@
  */
 
 "use strict";
-let dartsData;
+//Variable that switches between BLUE and RED player's turns
 let playerTurn;
+//Variables that calculate the X and Y of the dart based on the mouse position + how accurate their shot was
 let calculateX;
 let calculateY;
-let textTurn;
+//font for text
 let font;
+//image variables
 let aimBlue;
 let aimRed;
 let dartBlue;
@@ -23,40 +25,47 @@ let dartboard;
 let barImg;
 let thumbImg;
 let border;
-let thumbHeight = 0;
-let thumbDown = false;
-let slowFrame = 0
-let game = true;
-let thrown = false;
 let hand;
+//height of thumb on the power meter determines "accuracy" of shot
+let thumbHeight = 0;
+//Variable that switches the thumb up or down the power meter
+let thumbDown = false;
+//variable that declares when the game is active
+let gameOn = false;
+//variable that declares when the dart has been thrown, so that the hand image can alternate
+let thrown = false;
 
+//cases for playerTurn, which determines which player's turn it is
 const BLUE = 1;
 const RED = 2;
 
+//Array that stores blue team's thrown darts
 let blueDarts = [
 ]
-
+//Same as above, just for red player
 let redDarts = [
 ]
-
+//Array that stores the images for the dart icons at the bottom of the screen. These show how many darts you have remaining
+let blueDartCounter = [
+]
+//Same as above, just for red player
 let redDartCounter = [
 ]
 
-let blueDartCounter = [
-]
-
+//stores player scores of game, starting from 300
 const score = {
     blue: 300,
     red: 300
 }
 
+//Dart that gets pushed into array
 class Dart {
     constructor(x, y) {
         this.x = x;
         this.y = y;
     }
 }
-
+//Dart icon to display how many darts you have left in your turn
 class Darticon {
     constructor(x, y) {
         this.x = x;
@@ -64,61 +73,11 @@ class Darticon {
     }
 }
 
-function preload() {
-    // turn data into variable
-    dartsData = loadJSON("assets/data/darts.json");
-    font = loadFont('assets/fonts/DotGothic.ttf');
-    aimBlue = loadImage('assets/images/armBlue.png');
-    aimRed = loadImage('assets/images/armRed.png');
-    dartBlue = loadImage('assets/images/dartBlue.png');
-    dartRed = loadImage('assets/images/dartRed.png');
-    dartUpBlue = loadImage('assets/images/dartUpBlue.png');
-    dartUpRed = loadImage('assets/images/dartUpRed.png');
-    dartboard = loadImage('assets/images/dartboard.png');
-    border = loadImage('assets/images/dartborder.png');
-    barImg = loadImage('assets/images/bar.png');
-    thumbImg = loadImage('assets/images/thumb.png');
-    hand = loadImage('assets/images/thrown.png');
-}
-
-/**
- * My Setup
-*/
-function setup() {
-    noCursor();
-    populateRed();
-    populateBlue();
-    createCanvas(800, 800);
-    playerTurn = BLUE;
-    textFont(font);
-    textSize(30);
-    imageMode(CENTER);
-    rectMode(CENTER);
-}
-
-/**
- * My Draw
-*/
-function draw() {
-    background('black')
-    drawDartboard();
-    checkTurn();
-    roundDisplay();
-    drawDarts();
-    dartDisplay();
-    drawCrosshair();
-    drawPowerBar();
-    redScore();
-    blueScore();
-    resetBoard();
-    image(border, 400, 400, 800, 800)
-}
-
 function resetBoard() {
     if ((redDarts.length === 3) && (blueDarts.length === 3)) {
         push();
-        if (game === true) {
-            game = false;
+        if (gameOn === true) {
+            gameOn = false;
         }
         pop();
         push();
@@ -131,14 +90,14 @@ function resetBoard() {
 }
 
 function resetDarts() {
-    if (game === false) {
+    if (gameOn === false) {
         populateRed();
         populateBlue();
         redDarts = []
         blueDarts = []
     }
-    if (game === false) {
-        game = true;
+    if (gameOn === false) {
+        gameOn = true;
     }
 }
 
@@ -154,7 +113,7 @@ function checkTurn() {
 function mouseClicked() {
     thrown = true;
     setTimeout(resetHand, 700);
-    if (game === true) {
+    if (gameOn === true) {
         switch (playerTurn) {
             case BLUE:
                 addDartBlue();
@@ -165,6 +124,9 @@ function mouseClicked() {
                 redDartCounter.shift();
                 break;
         }
+    }
+    else if (gameState === menu) {
+        addDartBlue();
     }
 }
 
@@ -219,20 +181,16 @@ function drawDarts() {
 }
 
 function drawCrosshair() {
-    const blueCross = {
-        x: mouseX + 20,
-        y: mouseY + 50,
-    }
     if (playerTurn === BLUE) {
         if (thrown === true) {
-            image(hand, blueCross.x, blueCross.y, 250, 250);
+            image(hand, mouseX + 20, mouseY + 50, 250, 250);
         } else {
-            image(aimBlue, blueCross.x, blueCross.y, 250, 250);
+            image(aimBlue, mouseX + 20, mouseY + 50, 250, 250);
         }
     }
     else if (playerTurn === RED) {
         if (thrown === true) {
-            image(hand, blueCross.x, blueCross.y, 250, 250);
+            image(hand, mouseX + 20, mouseY + 50, 250, 250);
         }
         else {
             image(aimRed, mouseX + 20, mouseY + 50, 250, 250);
@@ -250,7 +208,7 @@ function blueScore() {
     push();
     fill('white')
     textSize(60);
-    text(score.blue, 40, 700);
+    text(score.blue, 40, 720);
     pop();
 }
 
@@ -258,7 +216,7 @@ function redScore() {
     push();
     fill('white')
     textSize(60);
-    text(score.red, 670, 700);
+    text(score.red, 670, 720);
     pop();
 }
 
@@ -276,15 +234,15 @@ function dartDisplay() {
 }
 
 function populateBlue() {
-    blueDartCounter.push(new Darticon(55, 730));
-    blueDartCounter.push(new Darticon(85, 730));
-    blueDartCounter.push(new Darticon(115, 730));
+    blueDartCounter.push(new Darticon(55, 750));
+    blueDartCounter.push(new Darticon(85, 750));
+    blueDartCounter.push(new Darticon(115, 750));
 }
 
 function populateRed() {
-    redDartCounter.push(new Darticon(745, 730));
-    redDartCounter.push(new Darticon(715, 730));
-    redDartCounter.push(new Darticon(685, 730));
+    redDartCounter.push(new Darticon(745, 750));
+    redDartCounter.push(new Darticon(715, 750));
+    redDartCounter.push(new Darticon(685, 750));
 }
 
 function drawPowerBar() {
@@ -306,6 +264,7 @@ function drawPowerBar() {
     push();
     image(thumbImg, thumb.x, thumb.y, thumb.w, thumb.h);
     pop();
+    console.log(thumb)
     if (thumbHeight >= 75)
         thumbDown = true;
     else if (thumbHeight <= -75)
