@@ -55,6 +55,13 @@ function setup() {
     textSize(30);
     imageMode(CENTER);
     rectMode(CENTER);
+
+    let button = createButton('menu');
+    button.position(700, 820);
+    button.mousePressed(delayMenu);
+    let button2 = createButton('darts');
+    button2.position(750, 820);
+    button2.mousePressed(delayDartMaster);
 }
 
 
@@ -68,12 +75,6 @@ function draw() {
         case menu:
             background('black')
             title();
-            let button = createButton('menu');
-            button.position(700, 840);
-            button.mousePressed(delayMenu);
-            let button2 = createButton('darts');
-            button2.position(750, 840);
-            button2.mousePressed(delayDartMaster);
             drawDarts();
             drawCrosshair();
             drawPowerMeter();
