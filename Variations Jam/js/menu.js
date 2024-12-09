@@ -70,6 +70,8 @@ function draw() {
             background('black')
             title();
             dartMasterButton();
+            dartDefenderButton();
+            dartSlayerButton();
             drawDarts();
             drawCrosshair();
             drawPowerMeter();
@@ -101,11 +103,26 @@ function draw() {
         * 
         */
         case dartdefender:
+            background('black')
+            menuButton();
+            drawDarts();
+            displayLives();
+            displayRemainingDarts();
+            drawnDartMax();
+            drawCrosshair();
+            drawPowerMeter();
+            image(border, 400, 400, 800, 800)
             break;
         /** * Dartslayer
         * 
         */
         case dartslayer:
+            background('black')
+            menuButton();
+            drawDarts();
+            drawCrosshair();
+            drawPowerMeter();
+            image(border, 400, 400, 800, 800)
             break;
     }
 }
@@ -219,6 +236,12 @@ function mouseClicked() {
     else if (gameState === menu) {
         addDartBlue();
     }
+    else if (gameState === dartdefender) {
+        addDartBlue();
+    }
+    else if (gameState === dartslayer) {
+        addDartBlue();
+    }
 }
 
 //Delays start of next game/case by 0.7 seconds to limit user confusion when switching games
@@ -231,7 +254,31 @@ function dartMasterButton() {
     push();
     fill('white');
     textSize(50);
-    text('DartMaster', 400, 500);
+    text('- DartMaster -', 400, 350);
+    pop();
+    blueDarts.forEach(dart => {
+        //distance of x and y between the text and the dart
+        let dx = dist(dart.x, 0, 400, 0);
+        let dy = dist(0, dart.y, 0, 350);
+        //if dart lands within a certain distance, make text turn red and change gameState to dartmaster
+        if ((dx <= 120) && (dy <= 60)) {
+            push();
+            fill('red');
+            textSize(50);
+            text('- DartMaster -', 400, 350);
+            pop();
+            delayDartMaster();
+        }
+    });
+}
+
+//Text for dartdefender game in main menu
+function dartDefenderButton() {
+    push();
+    fill('white');
+    textSize(50);
+    text('- DartDefender -', 400, 500);
+    pop();
     blueDarts.forEach(dart => {
         //distance of x and y between the text and the dart
         let dx = dist(dart.x, 0, 400, 0);
@@ -241,9 +288,32 @@ function dartMasterButton() {
             push();
             fill('red');
             textSize(50);
-            text('DartMaster', 400, 500);
+            text('- DartDefender -', 400, 500);
             pop();
-            delayDartMaster();
+            delayDartDefender();
+        }
+    });
+}
+
+//Text for dartslayer game in main menu
+function dartSlayerButton() {
+    push();
+    fill('white');
+    textSize(50);
+    text('- DartSlayer -', 400, 650);
+    pop();
+    blueDarts.forEach(dart => {
+        //distance of x and y between the text and the dart
+        let dx = dist(dart.x, 0, 400, 0);
+        let dy = dist(0, dart.y, 0, 650);
+        //if dart lands within a certain distance, make text turn red and change gameState to dartmaster
+        if ((dx <= 120) && (dy <= 60)) {
+            push();
+            fill('red');
+            textSize(50);
+            text('- DartSlayer -', 400, 650);
+            pop();
+            delayDartSlayer();
         }
     });
 }
@@ -253,15 +323,29 @@ function delayDartMaster() {
     setTimeout(dartMaster, 700)
 }
 
+function delayDartDefender() {
+    setTimeout(dartDefender, 700)
+}
+
+function delayDartSlayer() {
+    setTimeout(dartSlayer, 700)
+}
+
 //sets up menu by cleaning arrays and changes gameState to menu
 function menuChange() {
     //sets player to blue
     playerTurn = BLUE;
+    //resets dart arrays and score variables for dartMaster
     blueDarts = []
     redDarts = []
+    attackers = []
     gameState = menu;
     gore.red = 300;
     gore.blue = 300;
+    recentScoreBlue = 0;
+    recentScoreRed = 0;
+    remainingDarts = 10;
+    lives = 3;
     //turns off all dartMaster functionality
     dartMasterOn = false;
 }
@@ -276,6 +360,20 @@ function dartMaster() {
     blueDarts = []
     gameState = dartmaster;
     dartMasterOn = true;
+}
+
+function dartDefender() {
+    redDarts = []
+    blueDarts = []
+    gameState = dartdefender;
+    dartDefenderOn = true;
+}
+
+function dartSlayer() {
+    redDarts = []
+    blueDarts = []
+    gameState = dartslayer;
+    dartSlayerOn = true;
 }
 
 //Title text for menu screen
