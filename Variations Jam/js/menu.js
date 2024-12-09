@@ -139,11 +139,13 @@ function mouseClicked() {
                     //if the dart has landed close to the center of dartboard, give 50 points (inner bullseye)
                     if (d <= 10) {
                         gore.blue -= 50
+                        recentScoreBlue = 'Bull ' + 50;
                         break;
                     }
                     //same as above, except for outer bullseye
                     else if (d <= 50) {
                         gore.blue -= 25
+                        recentScoreBlue = 'Bull ' + 25;
                         break;
                     }
                     //If dart is within the dartboard, loop through array to find what angle the dart landed in
@@ -182,10 +184,12 @@ function mouseClicked() {
                 for (const score of dartsData.checkScores) {
                     if (d <= 15) {
                         gore.red -= 50
+                        recentScoreRed = 'Bull ' + 50;
                         break;
                     }
                     else if (d <= 50) {
                         gore.red -= 25
+                        recentScoreRed = 'Bull ' + 25;
                         break;
                     }
                     else if ((a >= score.angle) && (a <= score.end) && (d <= 250)) {
