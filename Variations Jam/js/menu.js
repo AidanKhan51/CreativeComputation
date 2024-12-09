@@ -1,7 +1,7 @@
 /**
  * Darts Menu
  * Aidan Khan
- * 
+ * Menu for selecting games. Throw dart at game name to play.
  */
 
 "use strict";
@@ -125,21 +125,32 @@ function mouseClicked() {
                 //remove blue dart icon from reserve
                 blueDartCounter.shift();
 
+                //determines score given based on the dart's position relative to the angles of the board
+                //takes last dart in the array
                 const dart = blueDarts[blueDarts.length - 1]
+                //distance between dart and center of board
                 let d = dist(dart.x, dart.y, 400, 400);
+                //board angles around center of canvas
                 let a = Math.atan2(dart.y - 400, dart.x - 400) * (180 / Math.PI)
+                //loop to check where dart has landed
                 for (const score of checkScores) {
+                    //if the dart has landed close to the center of dartboard, give 50 points (inner bullseye)
                     if (d <= 10) {
                         gore.blue -= 50
                         break;
                     }
+                    //same as above, except for outer bullseye
                     else if (d <= 50) {
                         gore.blue -= 25
                         break;
                     }
+                    //If dart is within the dartboard, loop through array to find what angle the dart landed in
                     else if ((a >= score.angle) && (a <= score.end) && (d <= 250)) {
+                        //if dart lands in outer ring, multiply score by 2
                         if ((d >= 215) && (d <= 249)) { gore.blue -= (score.points * 2) }
+                        //if dart lands in inner rung, multiply score by 3
                         else if ((d >= 135) && (d <= 155)) { gore.blue -= (score.points * 3) }
+                        //otherwise, assign normal score
                         else { gore.blue -= score.points }
                         console.log(score)
                         console.log(d)
@@ -190,15 +201,18 @@ function delayMenu() {
     setTimeout(menuChange, 700)
 }
 
+//Text for dartmaster game in main menu
 function dartMasterButton() {
     push();
     fill('white');
     textSize(50);
     text('DartMaster', 400, 500);
     blueDarts.forEach(dart => {
+        //distance of x and y between the text and the dart
         let dx = dist(dart.x, 0, 400, 0);
         let dy = dist(0, dart.y, 0, 500);
-        if ((dx <= 120) && (dy <= 40)) {
+        //if dart lands within a certain distance, make text turn red and change gameState to dartmaster
+        if ((dx <= 120) && (dy <= 60)) {
             push();
             fill('red');
             textSize(50);
@@ -209,8 +223,8 @@ function dartMasterButton() {
     });
 }
 
+//delays Gamestate change by 0.7 secs
 function delayDartMaster() {
-    pop();
     setTimeout(dartMaster, 700)
 }
 

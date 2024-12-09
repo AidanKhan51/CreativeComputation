@@ -325,12 +325,14 @@ function menuButton() {
     });
 }
 
+//draws circle behind dartboard to determine angle of where the dart hits the board
 function drawCircle() {
     push();
     circle(400, 400, 490)
     pop();
 }
 
+//checks score. If either player has a score of 0, they win. If they have less than zero, their score is set back to 50.
 function checkWin() {
     if (gore.blue === 0) { blueWin(); }
     else if (gore.red === 0) { redWin(); }
@@ -338,6 +340,7 @@ function checkWin() {
     else if (gore.red < 0) { gore.red = 50; }
 }
 
+//If blue wins, display text and send players back to menu
 function blueWin() {
     push();
     fill('blue');
@@ -347,6 +350,7 @@ function blueWin() {
     dartMasterOn = false;
     setTimeout(delayMenu, 2300)
 }
+//same as above, for red
 function redWin() {
     push();
     fill('red');
@@ -357,6 +361,8 @@ function redWin() {
     setTimeout(delayMenu, 2300)
 }
 
+//Array used to determine what points are assigned between certain angles
+//Stores data of the starting angle, end angle, and how many points a dart should be given if it lands between those angles between them
 const checkScores = [{
     end: 99,
     angle: 81,
