@@ -55,13 +55,7 @@ function setup() {
     textSize(30);
     imageMode(CENTER);
     rectMode(CENTER);
-
-    let button = createButton('menu');
-    button.position(700, 820);
-    button.mousePressed(delayMenu);
-    let button2 = createButton('darts');
-    button2.position(750, 820);
-    button2.mousePressed(delayDartMaster);
+    textAlign(CENTER);
 }
 
 
@@ -75,6 +69,7 @@ function draw() {
         case menu:
             background('black')
             title();
+            dartMasterButton();
             drawDarts();
             drawCrosshair();
             drawPowerMeter();
@@ -86,6 +81,7 @@ function draw() {
         case dartmaster:
             background('black')
             drawDartboard();
+            menuButton();
             checkTurn();
             roundDisplay();
             drawDarts();
@@ -118,7 +114,7 @@ function mouseClicked() {
     thrown = true;
     //afterwards, the throwing hand icon resets after 0.7 seconds.
     setTimeout(resetHand, 700);
-    if (gameOn === true) {
+    if (dartMasterOn === true) {
         //If the game is active, determine which player's turn it is
         switch (playerTurn) {
             case BLUE:
@@ -134,7 +130,8 @@ function mouseClicked() {
                 break;
         }
     }
-    //if the game is not active, and the gameState is instead menu, simply add a blue dart to the
+    //if the game is not active, and the gameState is instead menu (meaning it's one the menu screen),
+    // simply add a blue dart to the board
     else if (gameState === menu) {
         addDartBlue();
     }
@@ -145,16 +142,38 @@ function delayMenu() {
     setTimeout(menuChange, 700)
 }
 
+function dartMasterButton() {
+    push();
+    fill('white');
+    textSize(50);
+    text('DartMaster', 400, 500);
+    blueDarts.forEach(dart => {
+        let d = dist(dart.x, dart.y, 400, 500);
+        if (d <= 70) {
+            push();
+            fill('red');
+            textSize(50);
+            text('DartMaster', 400, 500);
+            pop();
+            delayDartMaster();
+        }
+    });
+}
+
 function delayDartMaster() {
+    pop();
     setTimeout(dartMaster, 700)
 }
 
-//sets up menu and changes gameState to menu
+//sets up menu by cleaning arrays and changes gameState to menu
 function menuChange() {
+    //sets player to blue
+    playerTurn = BLUE;
     blueDarts = []
     redDarts = []
     gameState = menu;
-    gameOn = false;
+    //turns off all dartMaster functionality
+    dartMasterOn = false;
 }
 
 //sets up dartmaster and turns gameState to dartmaster
@@ -166,7 +185,7 @@ function dartMaster() {
     redDarts = []
     blueDarts = []
     gameState = dartmaster;
-    gameOn = true;
+    dartMasterOn = true;
 }
 
 //Title text for menu screen
@@ -174,17 +193,17 @@ function title() {
     push();
     fill('white');
     textSize(80);
-    text('CART DART©', 220, 200);
+    text('CART DART©', 400, 200);
     pop();
     push();
     fill('white');
     textSize(20);
-    text("Aidan's world famous", 225, 120);
+    text("Aidan's world famous", 400, 120);
     pop();
     push();
     fill('white');
     textSize(20);
-    text("est. 2024", 225, 230);
+    text("est. 2024", 400, 230);
     pop();
 }
 

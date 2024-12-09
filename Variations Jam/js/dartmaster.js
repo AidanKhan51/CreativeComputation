@@ -31,7 +31,7 @@ let thumbHeight = 0;
 //Variable that switches the thumb up or down the power meter
 let thumbDown = false;
 //variable that declares when the game is active
-let gameOn = false;
+let dartMasterOn = false;
 //variable that declares when the dart has been thrown, so that the hand image can alternate
 let thrown = false;
 
@@ -77,15 +77,15 @@ function resetBoard() {
     if ((redDarts.length === 3) && (blueDarts.length === 3)) {
         push();
         //pauses some game functions temporarily
-        if (gameOn === true) {
-            gameOn = false;
+        if (dartMasterOn === true) {
+            dartMasterOn = false;
         }
         pop();
         //displays "next round"
         push();
         fill('white');
         textSize(50);
-        text('Next Round', 265, 750);
+        text('Next Round', 400, 765);
         pop();
         //Wait 2 seconds before next round begins
         setTimeout(resetDarts, 2000);
@@ -94,15 +94,15 @@ function resetBoard() {
 
 function resetDarts() {
     //populates dart icons (the ones that show how many darts you have left) and clears dart arrays to wipe the board
-    if (gameOn === false) {
+    if (dartMasterOn === false) {
         populateRed();
         populateBlue();
         redDarts = []
         blueDarts = []
     }
     //restarts game function
-    if (gameOn === false) {
-        gameOn = true;
+    if (dartMasterOn === false) {
+        dartMasterOn = true;
     }
 }
 /** changes player turn by checking length of dart arrays. 
@@ -128,14 +128,14 @@ function roundDisplay() {
         push();
         fill('blue');
         textSize(50);
-        text('BLUE Turn', 25, 65);
+        text('BLUE Turn', 140, 65);
         pop();
     }
     else if (playerTurn === RED) {
         push();
         fill('red');
         textSize(50);
-        text(' RED Turn', 545, 65);
+        text(' RED Turn', 655, 65);
         pop();
     }
 }
@@ -210,7 +210,7 @@ function blueScore() {
     push();
     fill('white')
     textSize(60);
-    text(score.blue, 40, 720);
+    text(score.blue, 85, 720);
     pop();
 }
 
@@ -219,7 +219,7 @@ function redScore() {
     push();
     fill('white')
     textSize(60);
-    text(score.red, 670, 720);
+    text(score.red, 715, 720);
     pop();
 }
 
@@ -288,5 +288,40 @@ function drawPowerMeter() {
         thumbHeight -= 5;
     else
         thumbHeight += 5;
+}
+
+//"button" that detects when dart hits it, sends user back to game select menu
+function menuButton() {
+    push();
+    fill('white');
+    textSize(50);
+    text('MENU', 400, 65);
+    blueDarts.forEach(dart => {
+        //distance between dart and text
+        let d = dist(dart.x, dart.y, 400, 65);
+        //if distance between dart and text is less than 70px, send user back to menu
+        if (d <= 70) {
+            push();
+            fill('red');
+            textSize(50);
+            text('MENU', 400, 65);
+            pop();
+            //function that changes case to menu
+            delayMenu();
+        }
+    });
+    //same thing as above but for red darts
+    redDarts.forEach(dart => {
+        let d = dist(dart.x, dart.y, 400, 65);
+        if (d <= 70) {
+            push();
+            fill('red');
+            textSize(50);
+            text('MENU', 400, 65);
+            pop();
+            //function that changes case to menu
+            delayMenu();
+        }
+    });
 }
 
