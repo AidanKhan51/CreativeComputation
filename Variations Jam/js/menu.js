@@ -89,10 +89,10 @@ function draw() {
             dartDisplay();
             redScore();
             blueScore();
-            drawCrosshair();
-            drawPowerMeter();
             drawRecentScoreBlue();
             drawRecentScoreRed();
+            drawCrosshair();
+            drawPowerMeter();
             checkWin();
             resetBoard();
             image(border, 400, 400, 800, 800)
