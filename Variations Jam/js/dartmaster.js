@@ -53,7 +53,7 @@ let redDartCounter = [
 ]
 
 //stores player scores of game, starting from 300
-const score = {
+const gore = {
     blue: 300,
     red: 300
 }
@@ -210,7 +210,7 @@ function blueScore() {
     push();
     fill('white')
     textSize(60);
-    text(score.blue, 85, 720);
+    text(gore.blue, 85, 720);
     pop();
 }
 
@@ -219,7 +219,7 @@ function redScore() {
     push();
     fill('white')
     textSize(60);
-    text(score.red, 715, 720);
+    text(gore.red, 715, 720);
     pop();
 }
 
@@ -290,7 +290,7 @@ function drawPowerMeter() {
         thumbHeight += 5;
 }
 
-//"button" that detects when dart hits it, sends user back to game select menu
+//"button" that detects when dart hits it, sangles user back to game select menu
 function menuButton() {
     push();
     fill('white');
@@ -299,7 +299,7 @@ function menuButton() {
     blueDarts.forEach(dart => {
         //distance between dart and text
         let d = dist(dart.x, dart.y, 400, 65);
-        //if distance between dart and text is less than 70px, send user back to menu
+        //if distance between dart and text is less than 70px, sangle user back to menu
         if (d <= 70) {
             push();
             fill('red');
@@ -325,3 +325,120 @@ function menuButton() {
     });
 }
 
+function drawCircle() {
+    push();
+    circle(400, 400, 490)
+    pop();
+}
+
+function checkWin() {
+    if (gore.blue === 0) { blueWin(); }
+    else if (gore.red === 0) { redWin(); }
+    else if (gore.blue < 0) { gore.blue = 50; }
+    else if (gore.red < 0) { gore.red = 50; }
+}
+
+function blueWin() {
+    push();
+    fill('blue');
+    textSize(50);
+    text('BLUE WINS', 400, 765);
+    pop();
+    dartMasterOn = false;
+    setTimeout(delayMenu, 2300)
+}
+function redWin() {
+    push();
+    fill('red');
+    textSize(50);
+    text('RED WINS', 400, 765);
+    pop();
+    dartMasterOn = false;
+    setTimeout(delayMenu, 2300)
+}
+
+const checkScores = [{
+    end: 99,
+    angle: 81,
+    points: 3
+}, {
+    end: 81,
+    angle: 63,
+    points: 17
+}, {
+    end: 63,
+    angle: 45,
+    points: 2
+}, {
+    end: 45,
+    angle: 27,
+    points: 15
+}, {
+    end: 27,
+    angle: 9,
+    points: 10
+}, {
+    end: 9,
+    angle: -9,
+    points: 6
+}, {
+    end: -9,
+    angle: -27,
+    points: 13
+}, {
+    end: -27,
+    angle: -45,
+    points: 4
+}, {
+    end: -45,
+    angle: -63,
+    points: 18
+}, {
+    end: -63,
+    angle: -81,
+    points: 1
+}, {
+    end: -81,
+    angle: -99,
+    points: 20
+}, {
+    end: -99,
+    angle: -117,
+    points: 5
+}, {
+    end: -117,
+    angle: -135,
+    points: 12
+}, {
+    end: -135,
+    angle: -153,
+    points: 9
+}, {
+    end: -153,
+    angle: -171,
+    points: 14
+}, {
+    end: -171,
+    angle: -180,
+    points: 11
+}, {
+    end: 180,
+    angle: 171,
+    points: 11
+}, {
+    end: 171,
+    angle: 153,
+    points: 8
+}, {
+    end: 153,
+    angle: 135,
+    points: 16
+}, {
+    end: 135,
+    angle: 117,
+    points: 7
+}, {
+    end: 117,
+    angle: 99,
+    points: 19
+}]

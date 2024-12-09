@@ -80,6 +80,7 @@ function draw() {
         */
         case dartmaster:
             background('black')
+            drawCircle();
             drawDartboard();
             menuButton();
             checkTurn();
@@ -90,6 +91,7 @@ function draw() {
             blueScore();
             drawCrosshair();
             drawPowerMeter();
+            checkWin();
             resetBoard();
             image(border, 400, 400, 800, 800)
             break;
@@ -117,16 +119,62 @@ function mouseClicked() {
     if (dartMasterOn === true) {
         //If the game is active, determine which player's turn it is
         switch (playerTurn) {
-            case BLUE:
+            case BLUE: {
                 //add blue dart to board
                 addDartBlue();
                 //remove blue dart icon from reserve
                 blueDartCounter.shift();
+
+                const dart = blueDarts[blueDarts.length - 1]
+                let d = dist(dart.x, dart.y, 400, 400);
+                let a = Math.atan2(dart.y - 400, dart.x - 400) * (180 / Math.PI)
+                for (const score of checkScores) {
+                    if (d <= 10) {
+                        gore.blue -= 50
+                        break;
+                    }
+                    else if (d <= 50) {
+                        gore.blue -= 25
+                        break;
+                    }
+                    else if ((a >= score.angle) && (a <= score.end) && (d <= 250)) {
+                        if ((d >= 215) && (d <= 249)) { gore.blue -= (score.points * 2) }
+                        else if ((d >= 135) && (d <= 155)) { gore.blue -= (score.points * 3) }
+                        else { gore.blue -= score.points }
+                        console.log(score)
+                        console.log(d)
+                        break;
+                    }
+                }
+            }
                 break;
-            case RED:
+            case RED: {
                 //same as above but for red
                 addDartRed();
                 redDartCounter.shift();
+
+                const dart = redDarts[redDarts.length - 1]
+                let d = dist(dart.x, dart.y, 400, 400);
+                let a = Math.atan2(dart.y - 400, dart.x - 400) * (180 / Math.PI)
+                for (const score of checkScores) {
+                    if (d <= 15) {
+                        gore.red -= 50
+                        break;
+                    }
+                    else if (d <= 50) {
+                        gore.red -= 25
+                        break;
+                    }
+                    else if ((a >= score.angle) && (a <= score.end) && (d <= 250)) {
+                        if ((d >= 215) && (d <= 249)) { gore.red -= (score.points * 2) }
+                        else if ((d >= 135) && (d <= 155)) { gore.red -= (score.points * 3) }
+                        else { gore.red -= score.points }
+                        console.log(score)
+                        console.log(d)
+                        break;
+                    }
+                }
+            }
                 break;
         }
     }
@@ -148,8 +196,9 @@ function dartMasterButton() {
     textSize(50);
     text('DartMaster', 400, 500);
     blueDarts.forEach(dart => {
-        let d = dist(dart.x, dart.y, 400, 500);
-        if (d <= 70) {
+        let dx = dist(dart.x, 0, 400, 0);
+        let dy = dist(0, dart.y, 0, 500);
+        if ((dx <= 120) && (dy <= 40)) {
             push();
             fill('red');
             textSize(50);
@@ -172,6 +221,8 @@ function menuChange() {
     blueDarts = []
     redDarts = []
     gameState = menu;
+    gore.red = 300;
+    gore.blue = 300;
     //turns off all dartMaster functionality
     dartMasterOn = false;
 }
