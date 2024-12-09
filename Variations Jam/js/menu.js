@@ -91,6 +91,8 @@ function draw() {
             blueScore();
             drawCrosshair();
             drawPowerMeter();
+            drawRecentScoreBlue();
+            drawRecentScoreRed();
             checkWin();
             resetBoard();
             image(border, 400, 400, 800, 800)
@@ -132,8 +134,8 @@ function mouseClicked() {
                 let d = dist(dart.x, dart.y, 400, 400);
                 //board angles around center of canvas
                 let a = Math.atan2(dart.y - 400, dart.x - 400) * (180 / Math.PI)
-                //loop to check where dart has landed
-                for (const score of checkScores) {
+                //loop to check where dart has landed using Array in JSON
+                for (const score of dartsData.checkScores) {
                     //if the dart has landed close to the center of dartboard, give 50 points (inner bullseye)
                     if (d <= 10) {
                         gore.blue -= 50
@@ -147,11 +149,21 @@ function mouseClicked() {
                     //If dart is within the dartboard, loop through array to find what angle the dart landed in
                     else if ((a >= score.angle) && (a <= score.end) && (d <= 250)) {
                         //if dart lands in outer ring, multiply score by 2
-                        if ((d >= 215) && (d <= 249)) { gore.blue -= (score.points * 2) }
+                        if ((d >= 215) && (d <= 249)) {
+                            gore.blue -= (score.points * 2)
+                            //show how many points player just scored
+                            recentScoreBlue = (score.points * 2)
+                        }
                         //if dart lands in inner rung, multiply score by 3
-                        else if ((d >= 135) && (d <= 155)) { gore.blue -= (score.points * 3) }
+                        else if ((d >= 135) && (d <= 155)) {
+                            gore.blue -= (score.points * 3)
+                            recentScoreBlue = (score.points * 3)
+                        }
                         //otherwise, assign normal score
-                        else { gore.blue -= score.points }
+                        else {
+                            gore.blue -= score.points
+                            recentScoreBlue = score.points
+                        }
                         console.log(score)
                         console.log(d)
                         break;
@@ -167,7 +179,7 @@ function mouseClicked() {
                 const dart = redDarts[redDarts.length - 1]
                 let d = dist(dart.x, dart.y, 400, 400);
                 let a = Math.atan2(dart.y - 400, dart.x - 400) * (180 / Math.PI)
-                for (const score of checkScores) {
+                for (const score of dartsData.checkScores) {
                     if (d <= 15) {
                         gore.red -= 50
                         break;
@@ -177,9 +189,18 @@ function mouseClicked() {
                         break;
                     }
                     else if ((a >= score.angle) && (a <= score.end) && (d <= 250)) {
-                        if ((d >= 215) && (d <= 249)) { gore.red -= (score.points * 2) }
-                        else if ((d >= 135) && (d <= 155)) { gore.red -= (score.points * 3) }
-                        else { gore.red -= score.points }
+                        if ((d >= 215) && (d <= 249)) {
+                            gore.red -= (score.points * 2)
+                            recentScoreRed = (score.points * 2)
+                        }
+                        else if ((d >= 135) && (d <= 155)) {
+                            gore.red -= (score.points * 3)
+                            recentScoreRed = (score.points * 3)
+                        }
+                        else {
+                            gore.red -= score.points
+                            recentScoreRed = (score.points)
+                        }
                         console.log(score)
                         console.log(d)
                         break;

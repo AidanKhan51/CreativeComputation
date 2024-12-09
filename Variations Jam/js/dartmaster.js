@@ -14,6 +14,9 @@ let calculateX;
 let calculateY;
 //font for text
 let font;
+//variable for most recent points scored for each player
+let recentScoreBlue = 0;
+let recentScoreRed = 0;
 //image variables
 let aimBlue;
 let aimRed;
@@ -94,11 +97,14 @@ function resetBoard() {
 
 function resetDarts() {
     //populates dart icons (the ones that show how many darts you have left) and clears dart arrays to wipe the board
+    //also resets counter of most recent points scored
     if (dartMasterOn === false) {
         populateRed();
         populateBlue();
         redDarts = []
         blueDarts = []
+        recentScoreBlue = 0
+        recentScoreRed = 0
     }
     //restarts game function
     if (dartMasterOn === false) {
@@ -361,90 +367,21 @@ function redWin() {
     setTimeout(delayMenu, 2300)
 }
 
-//Array used to determine what points are assigned between certain angles
-//Stores data of the starting angle, end angle, and how many points a dart should be given if it lands between those angles between them
-const checkScores = [{
-    end: 99,
-    angle: 81,
-    points: 3
-}, {
-    end: 81,
-    angle: 63,
-    points: 17
-}, {
-    end: 63,
-    angle: 45,
-    points: 2
-}, {
-    end: 45,
-    angle: 27,
-    points: 15
-}, {
-    end: 27,
-    angle: 9,
-    points: 10
-}, {
-    end: 9,
-    angle: -9,
-    points: 6
-}, {
-    end: -9,
-    angle: -27,
-    points: 13
-}, {
-    end: -27,
-    angle: -45,
-    points: 4
-}, {
-    end: -45,
-    angle: -63,
-    points: 18
-}, {
-    end: -63,
-    angle: -81,
-    points: 1
-}, {
-    end: -81,
-    angle: -99,
-    points: 20
-}, {
-    end: -99,
-    angle: -117,
-    points: 5
-}, {
-    end: -117,
-    angle: -135,
-    points: 12
-}, {
-    end: -135,
-    angle: -153,
-    points: 9
-}, {
-    end: -153,
-    angle: -171,
-    points: 14
-}, {
-    end: -171,
-    angle: -180,
-    points: 11
-}, {
-    end: 180,
-    angle: 171,
-    points: 11
-}, {
-    end: 171,
-    angle: 153,
-    points: 8
-}, {
-    end: 153,
-    angle: 135,
-    points: 16
-}, {
-    end: 135,
-    angle: 117,
-    points: 7
-}, {
-    end: 117,
-    angle: 99,
-    points: 19
-}]
+
+function drawRecentScoreBlue() {
+    push();
+    textAlign(LEFT);
+    fill('white');
+    textSize(30);
+    text(recentScoreBlue, 45, 650);
+    pop();
+}
+
+function drawRecentScoreRed() {
+    push();
+    textAlign(RIGHT);
+    fill('white');
+    textSize(30);
+    text(recentScoreRed, 755, 650);
+    pop();
+}
