@@ -9,7 +9,7 @@ let dartDefenderOn = false;
 let lives = 3;
 let remainingDarts = 10;
 
-attackers = []
+let attackers = []
 
 function drawnDartMax() {
     if ((blueDarts.length > 3)) {
