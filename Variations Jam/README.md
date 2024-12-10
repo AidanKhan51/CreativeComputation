@@ -1,12 +1,12 @@
 # CART DART
 
-by Aidan Khan
+Aidan Khan
 
 [View this project online](https://aidankhan51.github.io/CreativeComputation/Variations%20Jam/)
 
 ## Description
 
-Play 3 different Dart related games!
+Play 3 different Dart throwing games!
 
  • DartMaster: Play a two player local dart match! First one to reach exactly zero wins!
 

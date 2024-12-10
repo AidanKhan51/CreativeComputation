@@ -69,7 +69,9 @@ function draw() {
     switch (gameState) {
         /** * Menu 
         * Menu for selecting game. Throw darts at game name to select said game
+        * creates title text and text "buttons" to switch to the respective games
         * draws darts, hand crosshair, and power meter to throw darts
+        * draws background and image border
         */
         case menu:
             background('black')
@@ -83,7 +85,12 @@ function draw() {
             image(border, 400, 400, 800, 800)
             break;
         /** * Dartmaster
-        * who up darting they master
+        * draws background + border, dartboard and hidden circle behind dartboard (used to use dart score calculations)
+        * draws menu text button that brings you back to menu
+        * checks turn and displays which player's round it is
+        * draws the total score the player has left as well as the points the latest dart had collected
+        * draws darts, crosshair, and power meter
+        * checks win condition and resets board after all 6 darts per round have been thrown
         */
         case dartmaster:
             background('black')
@@ -105,7 +112,13 @@ function draw() {
             image(border, 400, 400, 800, 800)
             break;
         /** * Dartdefender
-        * 
+        * draws background and border
+        * draws and moves the attackers/items
+        * draws menu text button to send player back to menu
+        * draws darts, cursor, and power bar
+        * detects collisions between darts and attackers/items
+        * displays lives, ammo, score, and high score
+        * sets maximum amount of darts available on the screen
         */
         case dartdefender:
             console.log(bomb.x, bomb.y)
@@ -198,7 +211,7 @@ function mouseClicked() {
                             gore.blue -= (score.points * 3)
                             recentScoreBlue = (score.points * 3)
                         }
-                        //otherwise, assign normal score
+                        //otherwise, assign normal score (x1)
                         else {
                             gore.blue -= score.points
                             recentScoreBlue = score.points
@@ -211,7 +224,7 @@ function mouseClicked() {
             }
                 break;
             case RED: {
-                //same as above but for red
+                //same as above except for red
                 addDartRed();
                 redDartCounter.shift();
 
