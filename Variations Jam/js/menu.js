@@ -37,6 +37,11 @@ function preload() {
     dartDown = loadImage('assets/images/dartDownRed.png');
     bombImg = loadImage('assets/images/bomb.png');
     ammoImg = loadImage('assets/images/ammoBox.png');
+    monsterIdle = loadImage('assets/images/monsterIdle.png');
+    monsterDead = loadImage('assets/images/monsterDead.png');
+    monsterAttack = loadImage('assets/images/monsterAttack.png');
+    monsterDefend = loadImage('assets/images/monsterDefend.png');
+    monsterDA = loadImage('assets/images/monsterDefendAttack.png');
 }
 
 /**
@@ -115,7 +120,7 @@ function draw() {
         * draws background and border
         * draws and moves the attackers/items
         * draws menu text button to send player back to menu
-        * draws darts, cursor, and power bar
+        * draws darts, cursor, and power meter
         * detects collisions between darts and attackers/items
         * displays lives, ammo, score, and high score
         * sets maximum amount of darts available on the screen
@@ -147,12 +152,24 @@ function draw() {
             image(border, 400, 400, 800, 800)
             break;
         /** * Dartslayer
-        * 
+        * Draws background and border, the health bar for the monster/monster's arm, and the life counter
+        * checks your life and the monster's life, depending on which one's at zero, you either win or lose
+        * puts cap on darts that can be drawn at once on the board
+        * draws darts, cursor, and power meter
+        * calls the actions for the monster, separated by cases
         */
         case dartslayer:
             background('black')
+            monsterActions();
+            displayLives();
+            checkSlayerLives();
             menuButton();
+            drawHealthBar();
+            drawArmHealth();
+            checkArmHealth();
             drawDarts();
+            drawnDartMax();
+            checkMonsterHealth();
             drawCrosshair();
             drawPowerMeter();
             image(border, 400, 400, 800, 800)
@@ -276,6 +293,32 @@ function mouseClicked() {
     }
     else if ((gameState === dartslayer) && (dartSlayerOn === true)) {
         addDartBlue();
+        //for the last dart in the array
+        const dart = blueDarts[blueDarts.length - 1]
+        //distance of monster
+        let dX = dist(dart.x, 0, 400, 0);
+        let dY = dist(0, dart.y, 0, 400);
+        //distance of monster's eyes
+        let dEyesX = dist(dart.x, 0, 400, 0);
+        let dEyesY = dist(0, dart.y, 0, 340);
+        //distance of monster's arm
+        let dArmX = dist(dart.x, 0, 250, 0);
+        let dArmY = dist(0, dart.y, 0, 340);
+        //If dart is within range of monster and shield is not up, reduce health by 5
+        if ((dY <= 140) && (dX <= 110) && (immune === false)) {
+            health -= 5
+        }
+        //If dart is within range of eyes and the monster is blocking/parrying,
+        //reduce health by 10 and set monster back to idle position (window to do more damage) for 2 seconds
+        else if ((dEyesX <= 100) && (dEyesY <= 40) && (monsterState === BLOCK || PARRY)) {
+            health -= 10
+            monsterState = IDLE;
+            timer = 2;
+        }
+        //if dart is within range of the arm (while monster is attacking and parrying), deal 25 damage to the arm
+        else if ((dArmX <= 60) && (dArmY <= 60) && (monsterState === ATTACK || PARRY)) {
+            armHealth -= 25;
+        }
     }
 }
 
@@ -378,15 +421,22 @@ function menuChange() {
     gore.blue = 300;
     recentScoreBlue = 0;
     recentScoreRed = 0;
-    ammo = 10;
-    lives = 3;
     //turns off all game functionality
     dartMasterOn = false;
     dartDefenderOn = false;
-    //resets dartDefender score and array
+    dartSlayerOn = false;
+    //resets dartDefender score and array, as well as lives and ammo.
     attackers = []
     pushTimer = false;
     defenderScore = 0;
+    ammo = 10;
+    lives = 3;
+    //resets dartSlayer variables, like damage immunity, monster/monster's arm health and the timer
+    monsterState = IDLE;
+    immune = false;
+    health = 100;
+    timer = 3;
+    armHealth = 50;
 }
 
 //sets up and changes gameState to dartmaster
