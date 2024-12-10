@@ -187,7 +187,10 @@ function detectCollision() {
             //if ammo box is struck, gain 5 ammo
             else if (dAmmo <= 50) {
                 resetAmmoBox();
-                ammo += 5;
+                //if you've already lost, don't give any more darts
+                if (dartDefenderOn === true) {
+                    ammo += 5;
+                }
             }
             //if heart is struck, gain a life
             else if (dHeart <= 50) {
