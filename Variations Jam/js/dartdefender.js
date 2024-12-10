@@ -123,7 +123,7 @@ function pushAttackerTimer() {
 
 function pushAttacker() {
     //for loop to push attackers into array
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 4; i++) {
         attackers.push(new attacker(random(1, 2), random(30, 40)));
     }
 }
@@ -156,7 +156,7 @@ function detectCollision() {
             }
             else if (dAmmo <= 50) {
                 resetAmmoBox();
-                ammo += 3;
+                ammo += 5;
             }
             else if (dHeart <= 50) {
                 resetHeartBox();
