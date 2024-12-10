@@ -12,7 +12,7 @@ Play 3 different Dart throwing games!
 
  • DartDefender: Defend yourself by throwing darts! Intercept the attackers raining down on you, and collect items to stay alive! Try to beat your high score!
 
- • DartSlayer: 
+ • DartSlayer: Slay the monster! Throw darts to deal damage, and watch out for when it raises it's sword! Try aiming for the eyes too... and eventually you'll fell this evil beast!
 
  ## Controls
 
