@@ -106,5 +106,9 @@
             "angle": 99,
             "points": 19
         }
-    ]
+    ],
+    "description1": "stores high score of Dart Defender",
+    "high": {
+        "score": 0
+    }
 }

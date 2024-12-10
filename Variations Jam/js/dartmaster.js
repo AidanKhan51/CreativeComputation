@@ -2,8 +2,9 @@
  * Dartmaster
  * Aidan Khan
  * 
- * Welcome to the Dart dome
- * 
+ * 2 player Dart game! Be the first to make it to EXACTLY 0 to win!
+ * Land on the outer ring to score x2 points and the inner ring to score x3.
+ * Outer Bullseye is 25 points, inner Bullseye is 50.
  */
 
 "use strict";

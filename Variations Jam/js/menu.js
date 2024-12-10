@@ -127,6 +127,8 @@ function draw() {
             checkLives();
             drawnDartMax();
             drawDefenderScore();
+            drawHighScore();
+            calculateHighScore();
             drawCrosshair();
             drawPowerMeter();
             image(border, 400, 400, 800, 800)
@@ -338,7 +340,7 @@ function dartSlayerButton() {
     });
 }
 
-//delays Gamestate change by 0.7 secs
+//delays Gamestate changes by 0.7 secs
 function delayDartMaster() {
     setTimeout(dartMaster, 700)
 }
@@ -374,7 +376,8 @@ function menuChange() {
     defenderScore = 0;
 }
 
-//sets up dartmaster and turns gameState to dartmaster
+//sets up and changes gameState to dartmaster
+//clears and populates arrays and scores
 function dartMaster() {
     blueDartCounter = []
     redDartCounter = []
@@ -386,11 +389,14 @@ function dartMaster() {
     dartMasterOn = true;
 }
 
+//sets up and changes gameState to dartdefender
 function dartDefender() {
     blueDarts = []
     gameState = dartdefender;
     dartDefenderOn = true;
+    //switch to push attackers into array
     pushTimer = true;
+    //resets positions of special items
     bomb.y = -50;
     ammoBox.y = -50;
     heartBox.y = -50;
@@ -398,6 +404,7 @@ function dartDefender() {
     setTimeout(pushAttackerTimer, 1000);
 }
 
+//sets up and changes gameState to dartslayer
 function dartSlayer() {
     blueDarts = []
     gameState = dartslayer;
