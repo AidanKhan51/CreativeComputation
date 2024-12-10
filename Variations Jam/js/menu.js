@@ -19,8 +19,9 @@ const dartslayer = 4;
 function preload() {
     // JSON data
     dartsData = loadJSON("assets/data/darts.json");
-    //images
+    //font
     font = loadFont('assets/fonts/DotGothic.ttf');
+    //images
     aimBlue = loadImage('assets/images/armBlue.png');
     aimRed = loadImage('assets/images/armRed.png');
     dartBlue = loadImage('assets/images/dartBlue.png');
@@ -32,6 +33,10 @@ function preload() {
     barImg = loadImage('assets/images/bar.png');
     thumbImg = loadImage('assets/images/thumb.png');
     hand = loadImage('assets/images/thrown.png');
+    heart = loadImage('assets/images/heart.png');
+    dartDown = loadImage('assets/images/dartDownRed.png');
+    bombImg = loadImage('assets/images/bomb.png');
+    ammoImg = loadImage('assets/images/ammoBox.png');
 }
 
 /**
@@ -103,12 +108,25 @@ function draw() {
         * 
         */
         case dartdefender:
+            console.log(bomb.x, bomb.y)
             background('black')
+            drawAttacker();
+            moveAttacker();
+            drawAmmoBox();
+            moveAmmoBox();
+            drawHeartBox();
+            moveHeartBox();
+            drawBomb();
+            moveBomb();
             menuButton();
             drawDarts();
+            detectCollision();
             displayLives();
-            displayRemainingDarts();
+            displayAmmo();
+            checkZeroAmmo();
+            checkLives();
             drawnDartMax();
+            drawDefenderScore();
             drawCrosshair();
             drawPowerMeter();
             image(border, 400, 400, 800, 800)
@@ -236,10 +254,12 @@ function mouseClicked() {
     else if (gameState === menu) {
         addDartBlue();
     }
-    else if (gameState === dartdefender) {
+    else if ((gameState === dartdefender) && (dartDefenderOn === true)) {
         addDartBlue();
+        //use ammo when dart is fired
+        ammo -= 1
     }
-    else if (gameState === dartslayer) {
+    else if ((gameState === dartslayer) && (dartSlayerOn === true)) {
         addDartBlue();
     }
 }
@@ -338,16 +358,20 @@ function menuChange() {
     //resets dart arrays and score variables for dartMaster
     blueDarts = []
     redDarts = []
-    attackers = []
     gameState = menu;
     gore.red = 300;
     gore.blue = 300;
     recentScoreBlue = 0;
     recentScoreRed = 0;
-    remainingDarts = 10;
+    ammo = 10;
     lives = 3;
-    //turns off all dartMaster functionality
+    //turns off all game functionality
     dartMasterOn = false;
+    dartDefenderOn = false;
+    //resets dartDefender score and array
+    attackers = []
+    pushTimer = false;
+    defenderScore = 0;
 }
 
 //sets up dartmaster and turns gameState to dartmaster
@@ -363,14 +387,18 @@ function dartMaster() {
 }
 
 function dartDefender() {
-    redDarts = []
     blueDarts = []
     gameState = dartdefender;
     dartDefenderOn = true;
+    pushTimer = true;
+    bomb.y = -50;
+    ammoBox.y = -50;
+    heartBox.y = -50;
+    //pushes attackers for dart defender
+    setTimeout(pushAttackerTimer, 1000);
 }
 
 function dartSlayer() {
-    redDarts = []
     blueDarts = []
     gameState = dartslayer;
     dartSlayerOn = true;
